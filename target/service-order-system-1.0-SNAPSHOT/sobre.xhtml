@@ -5,12 +5,40 @@
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 template="template.xhtml"
                 xmlns:p="http://primefaces.org/ui">
-    
-        <h3>sobre</h3>
-    
-        <div class="sobre-container">
-            <h:graphicImage class="logo" library="service-order-system" name="imagens/logo.png"></h:graphicImage>
+
+    <div class="sobre-container">
+        <div class="title">
+            <h1>Quem Somos</h1>
         </div>
+        <div class="subtitle">
+            <h:graphicImage class="logo" library="service-order-system" name="imagens/logo.png"></h:graphicImage>
+            <h2>BRIGHT SERVICES</h2>
+        </div>
+        <div class="content">
+            <p>
+                Aqui você encontra a melhor solução de ordem de serviço para sua empresa. 
+                Trabalhamos com as melhores tecnologias do mercado, entregando qualidade, 
+                agilidade e praticidade para o seu negócio.
+            </p>
+            <p>
+                Nosso processo é simples porém eficaz. Você tem acesso à todos os 
+                relatórios juntamente com uma timeline que expõe todo o processo da
+                ordem, de forma com que facilite e ilustre o andamento.
+            </p>
+
+            <div class="card">
+                <p:steps>
+                    <p:menuitem value="Recebimento"/>
+                    <p:menuitem value="Planejamento"/>
+                    <p:menuitem value="Mapeamento de Atividades e Riscos"/>
+                    <p:menuitem value="Progresso"/>
+                    <p:menuitem value="Responsabilidades e Tarefas"/>
+                    <p:menuitem value="Alocação de Recursos"/>
+                </p:steps>
+            </div>
+
+        </div>
+    </div>
 
 </ui:composition>
 

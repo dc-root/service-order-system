@@ -54,15 +54,27 @@ main.container_content {
 
 div.sobre-container {
     display: flex;
-    align-items: start;
+    flex-direction: column;
+    align-items: center;
     justify-content: center;
     gap: 20px;
 }
 
 
-div.sobre-container img {
+div.sobre-container .subtitle img {
     object-fit: contain;
     border-radius: 4px;
-    border: 1px solid transparent;
     outline: 1px solid rgba(0, 0, 0, 0.1);
+    max-width: 100px;
+    margin-right: 1rem;
+}
+
+div.sobre-container .title {
+    font-size: 2rem;
+}
+
+div.sobre-container .subtitle {
+    align-self: flex-start;
+    font-size: 1.5rem;
+    display: flex;
 }
