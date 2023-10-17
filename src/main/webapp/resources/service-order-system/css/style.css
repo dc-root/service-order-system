@@ -47,6 +47,7 @@ footer {
     text-align: center;
     border-top: 1px solid rgba(0,0,0,0.4);
     padding: 15px;
+    background-color: #EFEFEF;
 }
 
 main.container_content {
