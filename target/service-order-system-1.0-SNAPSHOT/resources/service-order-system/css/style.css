@@ -7,12 +7,25 @@ body {
     flex-direction: column;
 }
 
+::selection {
+        color: white;
+        background-color: rgba(245, 170, 100, .9);
+    }
+
 .title {
     font-family: 'Merriweather', serif;
 }
 
+.title h1 {
+    font-size: 2.4rem;
+}
+
 .subtitle {
     font-family: 'Nunito Sans', sans-serif;
+}
+
+.subtitle h2 {
+    font-size: 1.7rem;
 }
 
 .text { 
@@ -38,7 +51,6 @@ header .button-acessar {
     background-color: #F5AA64;
     border-color: #FFF;
     outline-color: #F5AA64;
-    
 }
 
 header .button-acessar:hover {
@@ -57,66 +69,14 @@ main {
 
 footer {
     text-align: center;
-    border-top: 1px solid rgba(0,0,0,0.4);
-    padding: 15px;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 10px;
     background-color: #EFEFEF;
+    
+    color: #343534;
 }
 
 main.container_content {
     margin: 0 auto;
     width: 87%;
-}
-
-div.sobre-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 20px;
-}
-
-div.sobre-container .subtitle img {
-    object-fit: contain;
-    border-radius: 4px;
-    max-width: 100px;
-    margin-right: 1rem;
-}
-
-div.sobre-container .title {
-    font-size: 2rem;
-}
-
-div.sobre-container .title h1 {
-    margin-top: 1rem;
-}
-
-div.sobre-container .subtitle {
-    align-self: flex-start;
-    font-size: 1.5rem;
-    display: flex;
-}
-
-div.sobre-container .card {
-    margin-top: 2rem;
-    margin-bottom: 2rem;
-}
-
-div.sobre-container .footer {
-    align-self: flex-start;
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-}
-
-div.sobre-container .footer img {
-    max-width: 100px;
-    margin-right: 1rem;
-}
-
-div.sobre-container .footer-content {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-around;
 }
