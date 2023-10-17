@@ -6,6 +6,18 @@ body {
     flex-direction: column;
 }
 
+.title {
+    font-family: 'Merriweather', serif;
+}
+
+.subtitle {
+    font-family: 'Nunito Sans', sans-serif;
+}
+
+.text { 
+    font-family: 'Mulish', sans-serif;
+}
+
 header.header {
     display: flex;
     align-items: center;
