@@ -3,6 +3,7 @@ body {
     padding: 0;
     height: 100vh;
     font-family: sans-serif;
+    display: flex;
     flex-direction: column;
 }
 
@@ -43,6 +44,7 @@ main {
 }
 
 footer {
+    text-align: center;
     border-top: 1px solid rgba(0,0,0,0.4);
     padding: 15px;
 }
