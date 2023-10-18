@@ -26,16 +26,25 @@
                     <p:menuitem url="#{request.contextPath}/sobre.xhtml" icon="pi pi-info-circle" value="Sobre"></p:menuitem>
                 </p:menubar>
 
-                <a href="#{request.contextPath}/acessar.xhtml">
-                    <p:commandButton type="button" value="Acessar" styleClass="rounded-button button-acessar" />
-                </a>
+
+                <p:commandButton type="button" value="Acessar" styleClass="rounded-button button-acessar" onclick="PF('acessar').show()" />
+
+                <p:dialog id="modalDialog" header="Gerenciamento de Clientes"
+                          widgetVar="acessar"
+                          modal="true" height="400" width="1080"
+                          showEffect="fade">
+                    <h:form>
+                        <h:outputText value="Nome: " />
+                    </h:form>
+                </p:dialog>
+
             </div>
         </header>
 
         <main class="container_content">
             <ui:insert></ui:insert>
         </main>
-        
+
         <footer>
             2023 - Bright Services
         </footer>
