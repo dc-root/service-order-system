@@ -6,14 +6,22 @@
       xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Painel - Bright Service</title>
-        
+
         <h:outputStylesheet library="service-order-system" name="css/style.css"></h:outputStylesheet>
+        <h:outputStylesheet library="service-order-system" name="css/template_dash.css"></h:outputStylesheet>
+
+        <script>
+            function ToggleAside() {
+                var aside = document.getElementById("sidebar");
+                aside.classList.toggle("hidden");
+            }
+        </script>
     </h:head>
     <h:body>
         <header class="header">
             <div style="display: flex;align-items: center;justify-content: center;gap: 10px">
-                <p:commandButton type="button" icon="pi pi-align-left" styleClass="rounded-button ui-button-secondary ui-button-outlined" />
-                
+                <p:commandButton type="button" icon="pi pi-align-left" onclick="ToggleAside()" class="color: white" styleClass="rounded-button ui-button-secondary ui-button-outlined" />
+
                 <a href="#{request.contextPath}/index.xhtml">
                     <h:graphicImage class="logo" library="service-order-system" name="imagens/logo.png"></h:graphicImage>
                 </a>
@@ -23,14 +31,37 @@
                 <p:commandButton type="button" icon="pi pi-user" styleClass="rounded-button ui-button-warning" />
             </div>
         </header>
-        
-        <main class="container_content">
-            <ui:insert></ui:insert>
-        </main>
-        
-        <footer>
-            2023 - Bright Services
-        </footer>
+
+        <aside id="sidebar">
+            <p:menu class="menu">
+                <p:submenu label="Painel" class="submenu" style="background: white">
+                    <p:menuitem value="Dashboard" update="messages" ajax="false" icon="pi pi-chart-pie"/>
+                </p:submenu>
+            </p:menu>
+
+            <p:menu toggleable="false" class="menu">
+                <p:submenu label="Cadastros" class="submenu" style="background: white">
+                    <p:menuitem value="Clientes" update="messages" ajax="false" icon="pi pi-users"/>
+                    <p:menuitem value="Funcionario" update="messages" icon="pi pi-user" />
+                </p:submenu>
+            </p:menu>
+
+            <p:menu toggleable="false" class="menu">
+                <p:submenu label="Serviços" class="submenu" style="background: white">
+                    <p:menuitem value="Gerenciar Serviços" update="messages" ajax="false" icon="pi pi-compass"/>
+                </p:submenu>
+            </p:menu>
+        </aside>
+
+        <div class="content">
+            <main class="container_content">
+                <ui:insert></ui:insert>
+            </main>
+
+            <footer>
+                2023 - Bright Services
+            </footer>
+        </div>
     </h:body>
 </html>
 

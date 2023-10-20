@@ -1,0 +1,48 @@
+body {
+    display: grid;
+    grid-template-columns: auto 4fr;
+    grid-template-rows: auto 1fr;
+    grid-template-areas:
+        "header header"
+        "aside content";
+    height: 100vh;
+    margin: 0;
+}
+
+header.header {
+    grid-area: header;
+    margin-bottom: 0;
+    
+    background-color: #363a42;
+}
+
+aside {
+    grid-area: aside;
+    background-color: #363a42;
+    color: #fff;
+    width: 300px;
+    padding: 0px 2px;
+    overflow-y: auto;
+}
+
+aside.hidden {
+    display: none;
+}
+
+aside div.menu {
+    width: 100%;
+    border-radius: 0;
+    /*background-color: rgba(54, 58, 66, 1);*/
+    padding: 0;
+    
+}
+
+aside div.menu .submenu {
+    background-color: white;
+    color: white;
+}
+
+div.content {
+    grid-area: content;
+    padding: 20px;
+}
