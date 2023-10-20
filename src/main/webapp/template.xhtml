@@ -26,13 +26,15 @@
                     <p:menuitem url="#{request.contextPath}/sobre.xhtml" icon="pi pi-info-circle" value="Sobre"></p:menuitem>
                 </p:menubar>
 
-
-                <p:commandButton type="button" value="Acessar" styleClass="rounded-button button-acessar" onclick="PF('acessar').show()" />
+                <a href="#{request.contextPath}/dashboard.xhtml">
+                    <p:commandButton type="button" value="Acessar" styleClass="rounded-button button-acessar" /> <!-- onclick="PF('acessar').show()" --> 
+                </a>
 
                 <p:dialog id="modalDialog" header="Gerenciamento de Clientes"
                           widgetVar="acessar"
                           modal="true" height="400" width="1080"
                           showEffect="fade">
+
                     <h:form>
                         <h:outputText value="Nome: " />
                         <h:inputText/>
