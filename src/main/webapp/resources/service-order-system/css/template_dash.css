@@ -12,21 +12,22 @@ body {
 header.header {
     grid-area: header;
     margin-bottom: 0;
-    height: 40px;
+    height: 60px;
     padding: 5px 30px;
     
     background-color: #262a31;
 }
 header.header .toggleBtn {
-    height: 25px;
-    width: 25px;
+    height: 35px;
+    width: 35px;
+    padding: 4px;
     display: flex;
     align-items: center;
     justify-content: center;
     color: white;
     outline: none;
     border: none;
-    background-color: #262a31;
+    background-color: rgba(54, 58, 66, 1);
 }
 header.header .toggleBtn:focus {
     outline: none;
@@ -72,5 +73,5 @@ div.content {
     
     background-color: #F5F5F5;
     overflow: auto;
-    height: calc(100vh - 40px);
+    height: calc(100vh - 60px);
 }

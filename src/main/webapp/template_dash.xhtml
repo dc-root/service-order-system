@@ -28,55 +28,70 @@
     </h:head>
     <h:body>
         <header class="header">
-            <div style="display: flex;align-items: center;justify-content: center;gap: 10px">
+            <h:form style="display: flex;align-items: center;justify-content: center;gap: 10px">
                 <p:commandButton type="button" icon="fa fa-bars" onclick="ToggleAside()"  class="toggleBtn"  />
 
                 <a href="#{request.contextPath}/index.xhtml">
                     <h:graphicImage class="logo" library="service-order-system" name="imagens/logo.png"></h:graphicImage>
                 </a>
-            </div>
+            </h:form>
 
-            <div style="display: flex;align-items: center;gap: 10px">
+            <h:form style="display: flex;align-items: center;gap: 10px">
                 <p:commandButton id="user" type="button" icon="pi pi-user" style="height: 25px;width: 25px" styleClass="rounded-button ui-button-warning" />
-                
+
                 <p:menu overlay="true" trigger="user" my="left top" at="left bottom" style="margin-top: 5px" >
                     <p:submenu class="submenu">
                         <p:menuitem value="Perfil" icon="fa fa-user" url="#" />
                         <p:menuitem value="Sair" icon="fa fa-sign-out" url="#{request.contextPath}/index.xhtml"  />
                     </p:submenu>
                 </p:menu>
-            </div>
+            </h:form>
         </header>
 
         <aside id="sidebar">
-            <p:menu class="menu">
-                <p:submenu label="Painel" class="submenu" style="background: white">
-                    <p:menuitem value="Dashboard" url="#{request.contextPath}/dashboard.xhtml" icon="fa fa-tachometer" />
-                </p:submenu>
-            </p:menu>
+            <h:form>
+                <p:menu class="menu">
+                    <p:submenu label="Painel" class="submenu" style="background: white">
+                        <p:menuitem value="Dashboard" url="#{request.contextPath}/dashboard.xhtml" icon="fa fa-tachometer" />
+                    </p:submenu>
+                </p:menu>
 
-            <p:menu toggleable="false" class="menu">
-                <p:submenu label="Cadastros" class="submenu" style="background: white">
-                    <p:menuitem value="Clientes" icon="fa fa-users" url="#{request.contextPath}/cadastros/cliente.xhtml" />
-                    <p:menuitem value="Funcionario" icon="fa fa-user-circle-o" url="#{request.contextPath}/cadastros/funcionario.xhtml"  />
-                </p:submenu>
-            </p:menu>
+                <p:menu toggleable="false" class="menu">
+                    <p:submenu label="Cadastros" class="submenu" style="background: white">
+                        <p:menuitem value="Clientes" icon="fa fa-users" url="#{request.contextPath}/gerenciar/cliente.xhtml" />
+                        <p:menuitem value="Usuário" icon="fa fa-user-circle-o" url="#{request.contextPath}/gerenciar/usuario.xhtml"  />
+                    </p:submenu>
+                </p:menu>
 
-            <p:menu toggleable="false" class="menu">
-                <p:submenu label="Serviços" class="submenu" style="background: white" >
-                    <p:menuitem value="Gerenciar Serviços" icon="fa fa-compass"/>
-                </p:submenu>
-            </p:menu>
+                <p:menu toggleable="false" class="menu">
+                    <p:submenu label="Serviços" class="submenu" style="background: white" >
+                        <p:menuitem value="Gerenciar Serviços" icon="fa fa-compass"/>
+                        <p:menuitem value="Gerenciar Ordem de Serviço" icon="fa fa-magic"/>
+                    </p:submenu>
+                </p:menu>
+            </h:form>
         </aside>
 
         <div class="content">
             <main>
+                <p:growl>
+                    <p:autoUpdate></p:autoUpdate>
+                </p:growl>
+                <p:messages showDetail="true">
+                    <p:autoUpdate></p:autoUpdate>
+                </p:messages>
+
                 <ui:insert></ui:insert>
             </main>
 
-<!--            <footer style="margin-top: 40px">
-                <i class="fa fa-copyright" aria-hidden="true"></i> 2023 - Bright Services
-            </footer>-->
+            <!--<p:ajaxStatus onstart="PF('dialogStatus').show();" oncomplete="PF('dialogStatus').hide();"></p:ajaxStatus>-->
+<!--            <p:dialog widgetVar="dialogStatus" modal="true" showHeader="false" height="140" width="310" style="text-align: center">
+                <h:graphicImage class="loading" library="service-order-system" name="imagens/loading.svg" height="90" style="margin: 20% 0 0"></h:graphicImage>
+            </p:dialog>-->
+
+            <!--            <footer style="margin-top: 40px">
+                            <i class="fa fa-copyright" aria-hidden="true"></i> 2023 - Bright Services
+                        </footer>-->
         </div>
     </h:body>
 </html>

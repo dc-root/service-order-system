@@ -1,0 +1,203 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="/template_dash.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+    <p:panel header="Dados gerais">
+        <f:facet name="header">
+            <i class="fa fa-users" aria-hidden="true"></i> Gerenciar Cliente
+        </f:facet>
+        
+        <h:form id="form">
+            <p:panel header="Dados gerais" rendered="#{customerBean.estado ne 'PESQUISANDO'}">
+                <f:facet name="header">
+                    <i class="fa fa-pencil-square-o mr-2"></i> Dados gerais
+                </f:facet>
+                
+                <h:panelGrid class="managment-grid-cliente">
+                    <p:row>
+                        <p:selectOneMenu id="situacao" style="margin-top: 24px" value="#{customerBean.entity.customerRegistrationStatus}">
+                            <f:selectItem itemLabel="Ativo" itemValue="ATIVO"/>
+                            <f:selectItem itemLabel="Inativo" itemValue="INATIVO"/>
+                        </p:selectOneMenu>
+                    </p:row>
+
+                    <p:row>
+                        <p:outputLabel value="Nome" for="inputNome"></p:outputLabel>
+                        <p:inputText id="inputNome" value="#{customerBean.entity.name}"></p:inputText>
+                    </p:row>
+
+                    <p:row>
+                        <p:outputLabel value="Email" for="inputEmail"></p:outputLabel>
+                        <p:inputText id="inputEmail" value="#{customerBean.entity.email}"></p:inputText>
+                    </p:row>
+
+                    <p:row style="display: flex;flex-direction: column;gap: 5px">
+                        <p:outputLabel value="CPF" for="inputCPF"></p:outputLabel>
+                        <p:inputMask  id="inputCPF" disabled="#{customerBean.estado == 'EDITANDO'}" value="#{customerBean.entity.cpf}" mask="999.999.999-99"></p:inputMask>
+                    </p:row>
+
+                    <p:row>
+                        <p:outputLabel value="Data Nascimento" for="@next"></p:outputLabel>
+                        <p:inputText value="#{customerBean.entity.birthDate}">
+                            <f:convertDateTime pattern="dd/MM/yyyy"></f:convertDateTime>
+                        </p:inputText>
+                    </p:row>
+
+                    <p:row>
+                        <p:selectOneMenu id="clientType" style="margin-top: 24px" value="#{customerBean.entity.legalCustomerStatus}">
+                            <f:selectItem itemLabel="Selecione" itemValue="#{null}" noSelectionOption="true"/>
+                            <f:selectItem itemLabel="Pessoa Física" itemValue="FISICA"/>
+                            <f:selectItem itemLabel="Pessoa Jurídica" itemValue="JURIDICA"/>
+                        </p:selectOneMenu>
+                    </p:row>
+
+                    <p:row>
+                        <p:commandButton
+                            icon="fa fa-solid fa-save"
+                            update="@form" ajax="false"
+                            actionListener="#{customerBean.salvar()}"
+                            rendered="#{customerBean.estado == 'CRIANDO'}"
+                            value="Salvar"
+                            style="width: auto"
+                            ></p:commandButton>
+
+                        <p:commandButton
+                            icon="fa fa-solid fa-refresh"
+                            update="@form" ajax="false"
+                            actionListener="#{customerBean.atualizar()}"
+                            rendered="#{customerBean.estado == 'EDITANDO'}"
+                            value="Atualizar"
+                            style="width: auto"
+                            ></p:commandButton>
+
+                        <p:spacer width="4px"></p:spacer>
+
+                        <p:commandButton
+                            icon="fa fa-solid fa fa-times-circle"
+                            update="@form"
+                            actionListener="#{customerBean.listar()}"
+                            value="Cancelar"
+                            style="width: auto"
+                            ></p:commandButton>
+                    </p:row>
+                </h:panelGrid>
+            </p:panel>
+
+            <p:dataTable
+                id="dt-clientes"
+                widgetVar="dtClientes"
+                var="entity"
+                value="#{customerBean.entitys}"
+                reflow="true"
+                styleClass="clientes-table"
+                rowKey="#{clente.id}"
+                paginator="true"
+                rows="10"
+                paginatorPosition="bottom"
+                >
+                <f:facet name="header">
+                    <div class="products-table-header">
+                        <p:commandButton
+                            icon="pi pi-plus"
+                            update="@form"
+                            resetValues="true"
+                            process="@this"
+                            actionListener="#{customerBean.novo()}"
+                            value="Novo"
+                            ></p:commandButton>
+
+                        <span class="filter-container ui-input-icon-left">
+                            <i class="pi pi-search"></i>
+                            <p:inputText id="globalFilter" onkeyup="PF('dtClientes').filter()" placeholder="Search" />
+                        </span>
+                    </div>
+                </f:facet>
+
+                <p:column headerText="ID" width="30">
+                    <h:outputText value="#{entity.id}" />
+                </p:column>
+
+                <p:column headerText="Nome" filterBy="#{entity.name}">
+                    <h:outputText value="#{entity.name}" />
+                </p:column>
+
+                <p:column headerText="Status" filterBy="#{entity.customerRegistrationStatus}" width="50">
+                    <h:outputText
+                        value="#{entity.customerRegistrationStatus.toString().toLowerCase()}"
+                        styleClass="entity-badge status-#{entity.customerRegistrationStatus.toString().toLowerCase()}"
+                        />
+                </p:column>
+
+                <p:column headerText="Email" filterBy="#{entity.email}" width="200">
+                    <h:outputText value="#{entity.email}"></h:outputText>
+                </p:column>
+
+                <p:column headerText="CPF" filterBy="#{entity.cpf}">
+                    <h:outputText value="#{entity.cpf}"></h:outputText>
+                </p:column>
+
+                <p:column headerText="Tipo" filterBy="#{entity.legalCustomerStatus}" width="50">
+                    <h:outputText
+                        value="#{entity.legalCustomerStatus.toString().toLowerCase()}"
+                        styleClass="entity-badge status-#{entity.legalCustomerStatus.toString().toLowerCase()}"
+                        />
+                </p:column>
+
+                <p:column headerText="Data Nascimento" filterBy="#{entity.birthDate}">
+                    <h:outputText value="#{entity.birthDate}">
+                        <f:convertDateTime pattern="dd/MM/yyyy"></f:convertDateTime>  
+                    </h:outputText>
+                </p:column>
+
+                <p:column exportable="false" style="display: flex;gap: 4px">
+                    <p:commandButton
+                        icon="pi pi-pencil"
+                        actionListener="#{customerBean.editar(entity)}"
+                        styleClass="edit-button rounded-button ui-button-success"
+                        update="@form"
+                        ></p:commandButton>
+
+                    <p:commandButton
+                        class="ui-button-warning rounded-button"
+                        icon="pi pi-trash"
+                        oncomplete="PF('deleteProductDialog').show()"
+                        update="@form"
+                        ></p:commandButton>
+
+                    <p:confirmDialog
+                        widgetVar="deleteProductDialog"
+                        showEffect="fade"
+                        width="300"
+                        message="Tem certeza que quero remover este cliente?"
+                        header="Confirmar"
+                        >
+                        <p:commandButton
+                            value="Sim"
+                            icon="pi pi-check"
+                            actionListener="#{customerBean.remover(entity)}"
+                            process="@this"
+                            oncomplete="PF('deleteProductDialog').hide()"
+                            update="@form"
+                            />
+                        <p:commandButton
+                            value="Não"
+                            type="button"
+                            styleClass="ui-button-secondary"
+                            icon="pi pi-times"
+                            onclick="PF('deleteProductDialog').hide()"
+                            update="@form"
+                            />
+                    </p:confirmDialog>
+                </p:column>
+
+            </p:dataTable>
+        </h:form>
+    </p:panel>
+
+</ui:composition>
