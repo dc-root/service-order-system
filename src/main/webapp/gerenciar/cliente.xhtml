@@ -41,12 +41,17 @@
                         <p:outputLabel value="CPF" for="inputCPF"></p:outputLabel>
                         <p:inputMask  id="inputCPF" disabled="#{customerBean.estado == 'EDITANDO'}" value="#{customerBean.entity.cpf}" mask="999.999.999-99"></p:inputMask>
                     </p:row>
+                    
+                     <p:row style="display: flex;flex-direction: column;gap: 5px">
+                        <p:outputLabel value="Telefone" for="inputPhone"></p:outputLabel>
+                        <p:inputMask  id="inputPhone" value="#{customerBean.entity.phoneNumber}" mask="(99) 9999-9999"></p:inputMask>
+                    </p:row>
 
                     <p:row>
                         <p:outputLabel value="Data Nascimento" for="@next"></p:outputLabel>
-                        <p:inputText value="#{customerBean.entity.birthDate}">
+                        <p:inputMask value="#{customerBean.entity.birthDate}" mask="99/99/9999">
                             <f:convertDateTime pattern="dd/MM/yyyy"></f:convertDateTime>
-                        </p:inputText>
+                        </p:inputMask>
                     </p:row>
 
                     <p:row>
@@ -55,6 +60,11 @@
                             <f:selectItem itemLabel="Pessoa Física" itemValue="FISICA"/>
                             <f:selectItem itemLabel="Pessoa Jurídica" itemValue="JURIDICA"/>
                         </p:selectOneMenu>
+                    </p:row>
+                    
+                    <p:row>
+                        <p:outputLabel value="Obs" for="@next"></p:outputLabel>
+                        <p:inputTextarea rows="3" cols="33" value="#{customerBean.entity.obs}"/>
                     </p:row>
 
                     <p:row>
@@ -136,6 +146,10 @@
 
                 <p:column headerText="Email" filterBy="#{entity.email}" width="200">
                     <h:outputText value="#{entity.email}"></h:outputText>
+                </p:column>
+                
+                <p:column headerText="Telefone" filterBy="#{entity.phoneNumber}">
+                    <h:outputText value="#{entity.phoneNumber}"></h:outputText>
                 </p:column>
 
                 <p:column headerText="CPF" filterBy="#{entity.cpf}">

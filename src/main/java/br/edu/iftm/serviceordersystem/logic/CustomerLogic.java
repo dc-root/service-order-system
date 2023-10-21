@@ -37,6 +37,8 @@ public class CustomerLogic implements GenericLogic<Customer> {
                 customer.setBirthDate(entity.getBirthDate());
                 customer.setCustomerRegistrationStatus(entity.getCustomerRegistrationStatus());
                 customer.setLegalCustomerStatus(entity.getLegalCustomerStatus());
+                customer.setPhoneNumber(entity.getPhoneNumber());
+                customer.setObs(entity.getObs());
                 updateEntity  = customer;
             }
         }

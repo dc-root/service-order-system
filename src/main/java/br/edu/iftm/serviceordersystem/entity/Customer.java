@@ -20,6 +20,8 @@ public class Customer { // extends Address
     private String name;
     private String email;
     private Date birthDate;
+    private String phoneNumber;
+    private String obs;
     
     private RegistrationStatus customerRegistrationStatus;
     private LegalEntityStatus legalCustomerStatus;

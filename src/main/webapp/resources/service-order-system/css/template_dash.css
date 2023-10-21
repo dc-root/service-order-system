@@ -43,29 +43,39 @@ header.header .logo {
 
 aside {
     grid-area: aside;
-    background-color: #262a31;
+    /*background-color: #262a31;*/
+    background-color: white;
     color: #fff;
     width: 300px;
     padding: 0px 2px;
     overflow-y: auto;
+    
+    transition-property: all;
+    transition-duration: 150ms;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 aside.hidden {
+    width: 1px;
+}
+
+aside.hidden form {
     display: none;
 }
 
 aside div.menu {
     width: 100%;
     border-radius: 0;
-    /*background-color: rgba(54, 58, 66, 1);*/
     padding: 0;
-    
+    background: transparent;
+    color: white;
 }
 
 aside div.menu .submenu {
-    background-color: white;
+    background-color:  white;
     color: white;
 }
+
 
 div.content {
     grid-area: content;
@@ -74,4 +84,9 @@ div.content {
     background-color: #F5F5F5;
     overflow: auto;
     height: calc(100vh - 60px);
+    
+    transition-property: all;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+    transition-timing-function: linear;
 }

@@ -52,21 +52,21 @@
             <h:form>
                 <p:menu class="menu">
                     <p:submenu label="Painel" class="submenu" style="background: white">
-                        <p:menuitem value="Dashboard" url="#{request.contextPath}/dashboard.xhtml" icon="fa fa-tachometer" />
+                        <p:menuitem class="menuitem" value="Dashboard" url="#{request.contextPath}/dashboard.xhtml" icon="fa fa-tachometer" />
                     </p:submenu>
                 </p:menu>
 
                 <p:menu toggleable="false" class="menu">
                     <p:submenu label="Cadastros" class="submenu" style="background: white">
-                        <p:menuitem value="Clientes" icon="fa fa-users" url="#{request.contextPath}/gerenciar/cliente.xhtml" />
-                        <p:menuitem value="Usuário" icon="fa fa-user-circle-o" url="#{request.contextPath}/gerenciar/usuario.xhtml"  />
+                        <p:menuitem class="menuitem" value="Clientes" icon="fa fa-users" url="#{request.contextPath}/gerenciar/cliente.xhtml" />
+                        <p:menuitem class="menuitem" value="Usuário" icon="fa fa-user-circle-o" url="#{request.contextPath}/gerenciar/usuario.xhtml"  />
                     </p:submenu>
                 </p:menu>
 
                 <p:menu toggleable="false" class="menu">
                     <p:submenu label="Serviços" class="submenu" style="background: white" >
-                        <p:menuitem value="Gerenciar Serviços" icon="fa fa-compass"/>
-                        <p:menuitem value="Gerenciar Ordem de Serviço" icon="fa fa-magic"/>
+                        <p:menuitem class="menuitem" value="Gerenciar Serviços" icon="fa fa-compass"/>
+                        <p:menuitem class="menuitem" value="Gerenciar Ordem de Serviço" icon="fa fa-magic"/>
                     </p:submenu>
                 </p:menu>
             </h:form>
