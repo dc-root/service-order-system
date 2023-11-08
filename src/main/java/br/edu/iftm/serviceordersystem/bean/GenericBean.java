@@ -12,16 +12,17 @@ import java.util.logging.Logger;
 
 import java.util.List;
 import java.util.Date;
+import lombok.Setter;
 
 public abstract class GenericBean<E, L extends GenericLogic<E>> extends BeanUtil {
 
-    @Getter
+    @Getter @Setter
     private E entity;
 
-    @Getter
+    @Getter @Setter
     private List<E> entitys;
 
-    @Getter
+    @Getter @Setter
     private Estado estado = Estado.PESQUISANDO;
 
     enum Estado {
@@ -44,7 +45,7 @@ public abstract class GenericBean<E, L extends GenericLogic<E>> extends BeanUtil
 
         }
         newInstanceOfEntity();
-        estado = Estado.CRIANDO;
+        setEstado(Estado.CRIANDO);
     }
 
     public void salvar() {
@@ -52,7 +53,6 @@ public abstract class GenericBean<E, L extends GenericLogic<E>> extends BeanUtil
             getLogic().salvar(entity);
             addInfo("Salvo com sucesso.");
             listar();
-            estado = Estado.PESQUISANDO;
         } catch (ErrorBusinessException ex) {
             addAviso(ex);
         } catch (ErrorSystemException ex) {
@@ -66,8 +66,8 @@ public abstract class GenericBean<E, L extends GenericLogic<E>> extends BeanUtil
 
     public void listar() {
         try {
-            estado = Estado.PESQUISANDO;
-            entitys = getLogic().listar();
+            setEstado(Estado.PESQUISANDO);
+            setEntitys(getLogic().listar());
         } catch (ErrorBusinessException ex) {
             addAviso(ex);
         } catch (ErrorSystemException ex) {
@@ -76,7 +76,7 @@ public abstract class GenericBean<E, L extends GenericLogic<E>> extends BeanUtil
         }
     }
 
-    public void remover(E entity) {
+    public void remover() {
         try {
             getLogic().remover(entity);
             addInfo("Removido com sucesso.");
@@ -93,19 +93,13 @@ public abstract class GenericBean<E, L extends GenericLogic<E>> extends BeanUtil
             getLogic().atualizar(entity);
             addInfo("Atualizado com sucesso.");
             listar();
-            estado = Estado.PESQUISANDO;
+            setEstado(Estado.PESQUISANDO);
         } catch (ErrorBusinessException ex) {
             addAviso(ex);
         } catch (ErrorSystemException ex) {
             addError(ex);
             Logger.getLogger(GenericBean.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
-    
-
-    public void editar(E entity) {
-        this.entity = entity;
-        estado = Estado.EDITANDO;
     }
 
     public abstract L getLogic();

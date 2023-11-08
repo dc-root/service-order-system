@@ -9,6 +9,7 @@ body {
     margin: 0;
 }
 
+
 header.header {
     grid-area: header;
     margin-bottom: 0;
@@ -44,8 +45,6 @@ header.header .logo {
 aside {
     grid-area: aside;
     /*background-color: #262a31;*/
-    background-color: white;
-    color: #fff;
     width: 300px;
     padding: 0px 2px;
     overflow-y: auto;
@@ -65,17 +64,16 @@ aside.hidden form {
 
 aside div.menu {
     width: 100%;
-    border-radius: 0;
     padding: 0;
     background: transparent;
     color: white;
+    
+    border-radius: 0;
+    
+    border-right: 0;
+    border-left: 0;
+    /*border-color: rgba(54, 58, 66, 1);*/
 }
-
-aside div.menu .submenu {
-    background-color:  white;
-    color: white;
-}
-
 
 div.content {
     grid-area: content;
@@ -89,4 +87,14 @@ div.content {
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     transition-duration: 150ms;
     transition-timing-function: linear;
+}
+
+@media (max-width: 1024px) {
+    aside {
+        height: calc(100vh - 60px);
+        top: 60px;
+        
+        position: absolute;
+        z-index: 999;
+    }
 }

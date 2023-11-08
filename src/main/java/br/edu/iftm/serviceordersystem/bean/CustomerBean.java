@@ -10,7 +10,7 @@ import javax.inject.Named;
 @Named
 @SessionScoped
 public class CustomerBean extends GenericBean<Customer, CustomerLogic> {
-     @Inject
+    @Inject
     private CustomerLogic logic;
     
     @Override

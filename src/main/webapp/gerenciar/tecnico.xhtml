@@ -1,0 +1,229 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="/template_dash.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <p:panel header="Dados gerais">
+        <f:facet name="header">
+            <i class="fa fa-handshake-o" aria-hidden="true"></i> Técnico
+        </f:facet>
+
+        <h:form id="form" style="display: flex;flex-direction: column;gap: 15px">
+            <p:panel header="Dados gerais" rendered="#{technicianBean.estado ne 'PESQUISANDO'}">
+                <f:facet name="header">
+                    <i class="fa fa-pencil-square-o mr-2"></i> Dados gerais
+                </f:facet>
+
+                <h:panelGrid class="managment-grid">
+                    <p:row>
+                        <p:outputLabel value="Status" for="tecnicoType"></p:outputLabel>
+                        
+                        <p:selectOneMenu id="situacao" value="#{technicianBean.entity.technicianRegistrationStatus}">
+                            <f:selectItem itemLabel="Ativo" itemValue="ATIVO"/>
+                            <f:selectItem itemLabel="Inativo" itemValue="INATIVO"/>
+                        </p:selectOneMenu>
+                    </p:row>
+
+                    <p:row>
+                        <p:outputLabel value="Nome" for="inputNome"></p:outputLabel>
+                        <p:inputText id="inputNome" value="#{technicianBean.entity.name}"></p:inputText>
+                    </p:row>
+
+                    <p:row>
+                        <p:outputLabel value="Especialização" for="inputSpecialization"></p:outputLabel>
+                        <p:inputText id="inputSpecialization" value="#{technicianBean.entity.specialization}"></p:inputText>
+                    </p:row>
+
+                    <p:row>
+                        <p:outputLabel value="Email" for="inputEmail"></p:outputLabel>
+                        <p:inputText id="inputEmail" value="#{technicianBean.entity.email}"></p:inputText>
+                    </p:row>
+
+                    <p:row style="display: flex;flex-direction: column;gap: 5px">
+                        <p:outputLabel value="Telefone" for="inputPhone"></p:outputLabel>
+                        <p:inputMask  id="inputPhone" value="#{technicianBean.entity.phoneNumber}" mask="(99) 9999-9999"></p:inputMask>
+                    </p:row>
+
+                    <p:row>
+                        <p:outputLabel value="Tipo" for="tecnicoType"></p:outputLabel>
+                        
+                        <p:selectOneMenu id="tecnicoType" value="#{technicianBean.entity.legalTechnicianStatus}">
+                            <f:selectItem itemLabel="Pessoa Jurídica" itemValue="JURIDICA"/>
+                            <f:selectItem itemLabel="Pessoa Física" itemValue="FISICA"/>
+                            <p:ajax update="inputIdNum" process="@this" />
+                        </p:selectOneMenu>
+                    </p:row>
+                    
+                    <p:row style="display: flex;flex-direction: column;gap: 5px">
+                        <p:outputLabel value="CPF/CNPJ" for="inputIdNum"></p:outputLabel>
+                        <p:inputMask
+                            id="inputIdNum"
+                            disabled="#{technicianBean.estado == 'EDITANDO'}"
+                            value="#{technicianBean.entity.identificationNumber}"
+                            mask="#{technicianBean.entity.legalTechnicianStatus == 'FISICA' ? '999.999.999-99' : '99.999.999/9999-99'}"
+                        ></p:inputMask>
+                    </p:row>
+
+                    <p:row>
+                        <p:outputLabel value="Obs" for="@next"></p:outputLabel>
+                        <p:inputTextarea rows="3" cols="33" value="#{technicianBean.entity.obs}"/>
+                    </p:row>
+                </h:panelGrid>
+            </p:panel>
+            
+            <p:panel header="Dados de Endereço" rendered="#{technicianBean.estado ne 'PESQUISANDO'}">
+                <f:facet name="header">
+                    <i class="fa fa-map mr-2"></i> Dados de Endereço
+                </f:facet>
+                
+                <p>Inputs para endereços...</p>
+            </p:panel>
+
+            <p:panel rendered="#{technicianBean.estado ne 'PESQUISANDO'}">
+                <h:panelGrid class="managment-btns">
+                    <p:row>
+                        <p:commandButton
+                            icon="fa fa-solid fa-save"
+                            update="@form" ajax="false"
+                            actionListener="#{technicianBean.salvar()}"
+                            rendered="#{technicianBean.estado == 'CRIANDO'}"
+                            value="Salvar"
+                            style="width: auto"
+                            ></p:commandButton>
+
+                        <p:commandButton
+                            icon="fa fa-solid fa-refresh"
+                            update="@form" ajax="false"
+                            actionListener="#{technicianBean.atualizar()}"
+                            rendered="#{technicianBean.estado == 'EDITANDO'}"
+                            value="Atualizar"
+                            style="width: auto"
+                        ></p:commandButton>
+
+                        <p:spacer width="4px"></p:spacer>
+
+                        <p:commandButton
+                            icon="fa fa-solid fa fa-times-circle"
+                            update="@form"
+                            actionListener="#{technicianBean.listar()}"
+                            value="Cancelar"
+                            style="width: auto"
+                        ></p:commandButton>
+                    </p:row>
+                </h:panelGrid>         
+            </p:panel>
+
+
+            <p:dataTable
+                id="dt-tecnicos"
+                widgetVar="dtTecnicos"
+                var="rTecnico"
+                value="#{technicianBean.entitys}"
+                reflow="true"
+                styleClass="table"
+                rowKey="#{rTecnico.id}"
+                paginator="true"
+                rows="10"
+                paginatorPosition="bottom"
+            >
+                <f:facet name="header">
+                    <div class="products-table-header">
+                        <p:commandButton
+                            icon="pi pi-plus"
+                            update="@form"
+                            resetValues="true"
+                            process="@this"
+                            actionListener="#{technicianBean.novo()}"
+                            value="Novo"
+                            ></p:commandButton>
+
+                        <span class="filter-container ui-input-icon-left">
+                            <i class="pi pi-search"></i>
+                            <p:inputText id="globalFilter" onkeyup="PF('dtTecnicos').filter()" placeholder="Search" />
+                        </span>
+                    </div>
+                </f:facet>
+
+                <p:column headerText="ID" width="30">
+                    <h:outputText value="#{rTecnico.id}" />
+                </p:column>
+
+                <p:column headerText="Nome" filterBy="#{rTecnico.name}">
+                    <h:outputText value="#{rTecnico.name}" />
+                </p:column>
+
+                <p:column headerText="Especialização" filterBy="#{rTecnico.specialization}">
+                    <h:outputText value="#{rTecnico.specialization}" />
+                </p:column>
+
+                <p:column headerText="Status" filterBy="#{rTecnico.technicianRegistrationStatus}" width="50">
+                    <h:outputText
+                        value="#{rTecnico.technicianRegistrationStatus.toString().toLowerCase()}"
+                        styleClass="entity-badge status-#{rTecnico.technicianRegistrationStatus.toString().toLowerCase()}"
+                        />
+                </p:column>
+
+                <p:column headerText="Telefone" filterBy="#{rTecnico.phoneNumber}">
+                    <h:outputText value="#{rTecnico.phoneNumber}"></h:outputText>
+                </p:column>
+
+                <p:column headerText="Tipo" filterBy="#{rTecnico.legalTechnicianStatus}" width="50">
+                    <h:outputText
+                        value="#{rTecnico.legalTechnicianStatus.toString().toLowerCase()}"
+                        styleClass="entity-badge status-#{rTecnico.legalTechnicianStatus.toString().toLowerCase()}"
+                        />
+                </p:column>
+
+                <p:column headerText="Ação" exportable="false" >
+                    <p:commandButton
+                        icon="pi pi-pencil"
+                        actionListener="#{technicianBean.setEstado('EDITANDO')}"
+                        styleClass="edit-button rounded-button ui-button-success"
+                        update="@form"
+                    >
+                        <f:setPropertyActionListener value="#{rTecnico}" target="#{technicianBean.entity}" />
+                    </p:commandButton>
+
+                    <p:commandButton
+                        class="ui-button-warning rounded-button"
+                        style="margin-left: 4px"
+                        icon="pi pi-trash"
+                        oncomplete="PF('deleteTechnicianDialog').show()"
+                        update="@form"
+                    >
+                        <f:setPropertyActionListener value="#{rTecnico}" target="#{technicianBean.entity}" />
+                    </p:commandButton>
+
+                    <p:confirmDialog
+                        widgetVar="deleteTechnicianDialog"
+                        showEffect="fade"
+                        width="300"
+                        message="Tem certeza que quero remover o(a) tecnico #{technicianBean.entity.name}?"
+                        header="Confirmar"
+                    >
+                        <p:commandButton
+                            value="Sim"
+                            icon="pi pi-check"
+                            actionListener="#{technicianBean.remover()}"
+                            process="@this"
+                            oncomplete="PF('deleteTechnicianDialog').hide()"
+                            update="@form"
+                        />
+                        <p:commandButton
+                            value="Não"
+                            type="button"
+                            styleClass="ui-button-secondary"
+                            icon="pi pi-times"
+                            onclick="PF('deleteTechnicianDialog').hide()"
+                            update="@form"
+                        />
+                    </p:confirmDialog>
+                </p:column>
+
+            </p:dataTable>
+        </h:form>
+    </p:panel>
+</ui:composition>

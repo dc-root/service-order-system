@@ -3,10 +3,11 @@ package br.edu.iftm.serviceordersystem.logic;
 import br.edu.iftm.serviceordersystem.entity.Customer;
 import java.util.ArrayList;
 import java.util.List;
+import javax.enterprise.context.RequestScoped;
 
 public class CustomerLogic implements GenericLogic<Customer> {
 
-    private List<Customer> customers = new ArrayList<>();
+    final public List<Customer> customers = new ArrayList<>();
     private Long id = 1L;
 
     @Override
@@ -18,7 +19,7 @@ public class CustomerLogic implements GenericLogic<Customer> {
 
     @Override
     public void remover(Customer entity) {
-        customers.remove(entity);
+        if(entity != null) customers.remove(entity);
     }
 
     @Override
@@ -44,5 +45,14 @@ public class CustomerLogic implements GenericLogic<Customer> {
         }
         
         return updateEntity;
+    }
+    
+    public Customer buscarPorIdentificador(Long customerId) {
+        for (Customer customer : customers) {
+            if (customer.getId().equals(customerId)) {
+                return customer;
+            }
+        }
+        return null;
     }
 }

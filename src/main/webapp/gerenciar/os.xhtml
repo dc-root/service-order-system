@@ -1,0 +1,313 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="/template_dash.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <p:panel header="Dados gerais">
+        <f:facet name="header">
+            <i class="fa fa-magic" aria-hidden="true"></i> Ordem de Serviço
+        </f:facet>
+
+        <h:form id="form" style="display: flex;flex-direction: column;gap: 20px">
+            <p:panel header="Dados gerais" rendered="#{serviceOrderBean.estado ne 'PESQUISANDO'}">
+                <f:facet name="header">
+                    <i class="fa fa-pencil-square-o mr-2"></i> Dados gerais
+                </f:facet>
+
+                <h:panelGrid class="managment-grid">
+                    <p:row>
+                        <p:outputLabel value="Nome do serviço" for="inputNome"></p:outputLabel>
+                        <p:inputText id="inputNome" value="#{serviceOrderBean.entity.serviceName}"></p:inputText>
+                    </p:row>
+
+                    <p:row>
+                        <p:outputLabel value="Número" for="serviceNumber"></p:outputLabel>
+                        <div class="ui-inputgroup">
+                            <p:inputText
+                                id="serviceNumber"
+                                value="#{serviceOrderBean.entity.serviceNumber}"
+                                readonly="true"
+                                disabled="true"
+                            />
+                            <p:commandButton icon="fa fa-refresh" actionListener="#{serviceOrderBean.entity.setServiceNumber(serviceOrderBean.gerarUUID())}" update="serviceNumber"></p:commandButton>
+                        </div>
+                    </p:row>
+
+                    <p:row>
+                        <p:outputLabel for="realCost" value="Valor"/>
+                        <p:inputNumber
+                            id="realCost"
+                            value="#{serviceOrderBean.entity.realCost}"
+                            symbol="R$ "
+                            symbolPosition="p"
+                            decimalSeparator="," thousandSeparator="."
+                        />
+                    </p:row>
+
+                    <p:row rendered="#{false}"> <!-- customerBean.entitys.size() > 0 -->
+                        <p:outputLabel for="@next" value="Cliente" />
+                        <p:selectOneMenu
+                            id="customer"
+                            value="#{serviceOrderBean.entity.associatedCustomer}"
+                            var="rsCliente" filter="true"
+                            filterMatchMode="startsWith" filterNormalize="true"
+                            panelStyle="width:350px"
+                        >
+                            <f:selectItems
+                                value="#{customerBean.entitys}"
+                                var="rCliente"
+                                itemLabel="#{rCliente.name}"
+                                itemValue="#{rCliente}"
+                            />
+
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Nome"/>
+                                </f:facet>
+                                
+                                <h:outputText value="#{rsCliente.name}"/>
+                            </p:column>
+                            
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="E-mail"/>
+                                </f:facet>
+                                
+                                <h:outputText value="#{rsCliente.email}"/>
+                            </p:column>
+                        </p:selectOneMenu>
+                    </p:row>
+                    
+                    <p:row rendered="#{false}">  <!-- technicianBean.entitys.size() > 0 -->
+                        <p:outputLabel for="@next" value="Tecnico" />
+                        <p:selectOneMenu
+                            id="technician"
+                            value="#{serviceOrderBean.entity.responsibleTechnician}"
+                            var="rsTechnician" filter="true"
+                            filterMatchMode="startsWith" filterNormalize="true"
+                            panelStyle="width:450px"
+                        >
+
+                            <f:selectItems
+                                value="#{technicianBean.entitys}"
+                                var="rTechnician"
+                                itemLabel="#{rTechnician.name}"
+                                itemValue="#{rTechnician}"
+                            />
+
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Nome"/>
+                                </f:facet>
+                                
+                                <h:outputText value="#{rsTechnician.name}"/>
+                            </p:column>
+                            
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="E-mail"/>
+                                </f:facet>
+                                
+                                <h:outputText value="#{rsTechnician.email}"/>
+                            </p:column>
+                            
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Especialidade"/>
+                                </f:facet>
+                                
+                                <h:outputText value="#{rsTechnician.specialization}"/>
+                            </p:column>
+                        </p:selectOneMenu>
+                    </p:row>
+                    
+                    <p:row>
+                        <p:outputLabel value="Status" for="osStatus"></p:outputLabel>
+                        <p:selectOneMenu id="osStatus" value="#{serviceOrderBean.entity.serviceOrderStatus}">
+                            <f:selectItem itemLabel="Aberto" itemValue="ABERTO" />
+                            <f:selectItem itemLabel="Em andamento" itemValue="EM_ANDAMENTO" />
+                            <f:selectItem itemLabel="Cancelado" itemValue="CANCELADO" />
+                            <f:selectItem itemLabel="Concluido" itemValue="CONCLUIDO" />
+                        </p:selectOneMenu>
+                    </p:row>
+                    
+                    <p:row>
+                        <p:outputLabel value="Prioridade" for="osPrority"></p:outputLabel>
+                        <p:selectOneMenu id="osPrority" value="#{serviceOrderBean.entity.priority}">
+                            <f:selectItem itemLabel="Alta" itemValue="ALTA" />
+                            <f:selectItem itemLabel="Média" itemValue="MEDIA" />
+                            <f:selectItem itemLabel="Baixa" itemValue="BAIXA" />
+                        </p:selectOneMenu>
+                    </p:row>
+
+                </h:panelGrid>
+            </p:panel>
+
+            <p:panel rendered="#{serviceOrderBean.estado ne 'PESQUISANDO'}">
+                <h:panelGrid class="managment-btns">
+                    <p:row>
+                        <p:commandButton
+                            icon="fa fa-solid fa-save"
+                            update="@form" ajax="false"
+                            actionListener="#{serviceOrderBean.salvar()}"
+                            rendered="#{serviceOrderBean.estado == 'CRIANDO'}"
+                            value="Salvar"
+                            style="width: auto"
+                            ></p:commandButton>
+
+                        <p:commandButton
+                            icon="fa fa-solid fa-refresh"
+                            update="@form" ajax="false"
+                            actionListener="#{serviceOrderBean.atualizar()}"
+                            rendered="#{serviceOrderBean.estado == 'EDITANDO'}"
+                            value="Atualizar"
+                            style="width: auto"
+                            ></p:commandButton>
+
+                        <p:spacer width="4px"></p:spacer>
+
+                        <p:commandButton
+                            icon="fa fa-solid fa fa-times-circle"
+                            update="@form"
+                            actionListener="#{serviceOrderBean.listar()}"
+                            value="Cancelar"
+                            style="width: auto"
+                            ></p:commandButton>
+                    </p:row>
+                </h:panelGrid>
+            </p:panel>
+
+            <p:dataTable
+                id="dt-os"
+                widgetVar="dtOs"
+                var="rOs"
+                value="#{serviceOrderBean.entitys}"
+                reflow="true"
+                styleClass="table"
+                rowKey="#{rOs.id}"
+                paginator="true"
+                rows="10"
+                paginatorPosition="bottom"
+            >
+                <f:facet name="header">
+                    <div class="products-table-header">
+                        <p:commandButton
+                            icon="pi pi-plus"
+                            update="@form"
+                            resetValues="true"
+                            process="@this"
+                            actionListener="#{serviceOrderBean.novo()}"
+                            value="Novo"
+                        ></p:commandButton>
+
+                        <span class="filter-container ui-input-icon-left">
+                            <i class="pi pi-search"></i>
+                            <p:inputText id="globalFilter" onkeyup="PF('dtOs').filter()" placeholder="Search" />
+                        </span>
+                    </div>
+                </f:facet>
+
+                <p:column headerText="ID" width="30">
+                    <h:outputText value="#{rOs.id}" />
+                </p:column>
+
+                <p:column headerText="Numero do serviço" filterBy="#{rOs.serviceNumber}">
+                    <h:outputText value="#{rOs.serviceNumber.toString().substring(0, 8)}" />
+                </p:column>
+
+                <p:column headerText="Nome" filterBy="#{rOs.serviceName}">
+                    <h:outputText value="#{rOs.serviceName}" />
+                </p:column>
+
+                <p:column headerText="Valor" filterBy="#{rOs.realCost}">
+                    <h:outputText value="R$ #{rOs.realCost}"></h:outputText>
+                </p:column>
+
+                <p:column headerText="Aberto em" filterBy="#{rOs.openingDate}">
+                    <h:outputText value="#{rOs.openingDate}">
+                        <f:convertDateTime pattern="dd/MM/yyyy"></f:convertDateTime>
+                    </h:outputText>
+                </p:column>
+
+                <p:column headerText="Finalizado em" filterBy="#{rOs.completionDate}">
+                    <h:outputText value="#{rOs.completionDate}">
+                        <f:convertDateTime pattern="dd/MM/yyyy"></f:convertDateTime>
+                    </h:outputText>
+                </p:column>
+
+                <p:column headerText="Técnico" filterBy="#{rOs.responsibleTechnician.getName()}">
+                    <h:outputText value="#{rOs.responsibleTechnician.getName()}"></h:outputText>
+                </p:column>
+
+                <p:column headerText="Cliente" filterBy="#{rOs.associatedCustomer.getName()}">
+                    <h:outputText value="#{rOs.associatedCustomer.getName()}"></h:outputText>
+                </p:column>
+
+                <p:column headerText="Status" filterBy="#{rOs.serviceOrderStatus}">
+                    <h:outputText
+                        value="#{rOs.serviceOrderStatus.toString().toLowerCase()}"
+                        styleClass="entity-badge status-#{rOs.serviceOrderStatus.toString().toLowerCase()}"
+                        />
+                </p:column>
+
+                <p:column headerText="Prioridade" filterBy="#{rOs.priority}">
+                    <h:outputText
+                        value="#{rOs.priority.toString().toLowerCase()}"
+                        styleClass="entity-badge status-#{rOs.priority.toString().toLowerCase()}"
+                        />
+                </p:column>
+
+                <p:column headerText="Ação" exportable="false" >
+                    <p:commandButton
+                        icon="pi pi-pencil"
+                        actionListener="#{serviceOrderBean.setEstado('EDITANDO')}"
+                        styleClass="edit-button rounded-button ui-button-success"
+                        update="@form"
+                        >
+                        <f:setPropertyActionListener value="#{rOs}" target="#{serviceOrderBean.entity}" />
+                    </p:commandButton>
+
+                    <p:commandButton
+                        class="ui-button-warning rounded-button"
+                        style="margin-left: 4px"
+                        icon="pi pi-trash"
+                        process="@this"
+                        update="@form"
+                        oncomplete="PF('deleteOSDialog').show()"
+                        >
+                        <f:setPropertyActionListener value="#{rOs}" target="#{serviceOrderBean.entity}" />
+                    </p:commandButton>
+
+                    <p:confirmDialog
+                        widgetVar="deleteOSDialog"
+                        showEffect="fade"
+                        width="300"
+                        message="Tem certeza que quero remover essa ordem de serviço?"
+                        header="Confirmar"
+                        >
+                        <p:commandButton
+                            value="Sim"
+                            icon="pi pi-check"
+                            actionListener="#{serviceOrderBean.remover()}"
+                            process="@this"
+                            oncomplete="PF('deleteOSDialog').hide()"
+                            update="@form"
+                            />
+                        <p:commandButton
+                            value="Não"
+                            type="button"
+                            styleClass="ui-button-secondary"
+                            icon="pi pi-times"
+                            onclick="PF('deleteOSDialog').hide()"
+                            update="@form"
+                            />
+                    </p:confirmDialog>
+                </p:column>
+            </p:dataTable>
+        </h:form>
+    </p:panel>
+</ui:composition>

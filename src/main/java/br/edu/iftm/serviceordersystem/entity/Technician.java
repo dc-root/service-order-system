@@ -4,14 +4,12 @@ import br.edu.iftm.serviceordersystem.entity.Address;
 import br.edu.iftm.serviceordersystem.util.LegalEntityStatus;
 import br.edu.iftm.serviceordersystem.util.RegistrationStatus;
 import java.io.Serializable;
-import java.util.Date;
-
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class Customer implements Serializable {
+public class Technician implements Serializable {
     
     @EqualsAndHashCode.Include
     private Long id;
@@ -21,11 +19,11 @@ public class Customer implements Serializable {
     
     private String name;
     private String email;
-    private Date birthDate;
     private String phoneNumber;
 //    private Address address;
+    private String specialization;
     private String obs;
     
-    private RegistrationStatus customerRegistrationStatus;
-    private LegalEntityStatus legalCustomerStatus;
+    private RegistrationStatus technicianRegistrationStatus;
+    private LegalEntityStatus legalTechnicianStatus;
 }

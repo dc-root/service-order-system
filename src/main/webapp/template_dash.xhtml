@@ -9,7 +9,7 @@
 
         <h:outputStylesheet library="service-order-system" name="css/style.css"></h:outputStylesheet>
         <h:outputStylesheet library="service-order-system" name="css/template_dash.css"></h:outputStylesheet>
-        <h:outputStylesheet library="service-order-system" name="css/cadastro_cliente.css"></h:outputStylesheet>
+        <h:outputStylesheet library="service-order-system" name="css/cadastro_page.css"></h:outputStylesheet>
 
         <h:outputStylesheet library="webjars" name="font-awesome/5.12.0/css/all.min-jsf.css" />
         <h:outputStylesheet library="webjars" name="font-awesome/5.12.0/css/v4-shims.min-jsf.css" />
@@ -51,22 +51,22 @@
         <aside id="sidebar">
             <h:form>
                 <p:menu class="menu">
-                    <p:submenu label="Painel" class="submenu" style="background: white">
+                    <p:submenu label="Painel" class="submenu">
                         <p:menuitem class="menuitem" value="Dashboard" url="#{request.contextPath}/dashboard.xhtml" icon="fa fa-tachometer" />
                     </p:submenu>
                 </p:menu>
 
-                <p:menu toggleable="false" class="menu">
-                    <p:submenu label="Cadastros" class="submenu" style="background: white">
+                <p:menu toggleable="false" styleClass="menu">
+                    <p:submenu label="Cadastros" class="submenu">
                         <p:menuitem class="menuitem" value="Clientes" icon="fa fa-users" url="#{request.contextPath}/gerenciar/cliente.xhtml" />
-                        <p:menuitem class="menuitem" value="Usuário" icon="fa fa-user-circle-o" url="#{request.contextPath}/gerenciar/usuario.xhtml"  />
+                        <p:menuitem class="menuitem" value="Técnico" icon="fa fa-handshake-o" url="#{request.contextPath}/gerenciar/tecnico.xhtml"  />
+                        <!--<p:menuitem class="menuitem" value="Usuário" icon="fa fa-user-circle-o" url="#{request.contextPath}/gerenciar/usuario.xhtml"  />-->
                     </p:submenu>
                 </p:menu>
 
-                <p:menu toggleable="false" class="menu">
-                    <p:submenu label="Serviços" class="submenu" style="background: white" >
-                        <p:menuitem class="menuitem" value="Gerenciar Serviços" icon="fa fa-compass"/>
-                        <p:menuitem class="menuitem" value="Gerenciar Ordem de Serviço" icon="fa fa-magic"/>
+                <p:menu toggleable="false" styleClass="menu">
+                    <p:submenu label="Serviços" class="submenu">
+                        <p:menuitem class="menuitem" value="Gerenciar Ordem de Serviço" icon="fa fa-magic" url="#{request.contextPath}/gerenciar/os.xhtml" />
                     </p:submenu>
                 </p:menu>
             </h:form>
@@ -85,9 +85,9 @@
             </main>
 
             <!--<p:ajaxStatus onstart="PF('dialogStatus').show();" oncomplete="PF('dialogStatus').hide();"></p:ajaxStatus>-->
-<!--            <p:dialog widgetVar="dialogStatus" modal="true" showHeader="false" height="140" width="310" style="text-align: center">
-                <h:graphicImage class="loading" library="service-order-system" name="imagens/loading.svg" height="90" style="margin: 20% 0 0"></h:graphicImage>
-            </p:dialog>-->
+            <!--            <p:dialog widgetVar="dialogStatus" modal="true" showHeader="false" height="140" width="310" style="text-align: center">
+                            <h:graphicImage class="loading" library="service-order-system" name="imagens/loading.svg" height="90" style="margin: 20% 0 0"></h:graphicImage>
+                        </p:dialog>-->
 
             <!--            <footer style="margin-top: 40px">
                             <i class="fa fa-copyright" aria-hidden="true"></i> 2023 - Bright Services

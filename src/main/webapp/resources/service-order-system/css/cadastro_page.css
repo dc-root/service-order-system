@@ -1,0 +1,114 @@
+#form button { /* Todos  */
+    background-color:  #262a31;
+    border-color: rgba(38, 42, 49, 0.8);
+    color: white;
+}
+
+#form button:focus { /* Todos  */
+    box-shadow: 0 0 0 0;
+}
+
+.products-table-header { /* Todos  */
+    display: flex;
+    justify-content: space-between;
+}
+
+.table th { /* Todos  */
+    font-size: 12px;
+    text-transform: uppercase;
+}
+
+.table th input {/* Todos  */
+    display: none !important;
+}
+
+.table .entity-badge {
+    border-radius: 4px;
+    max-width: max-content;
+    padding: 2px 10px;
+    text-align: center;
+    vertical-align: middle;
+    font-weight: 500;
+    
+    font-size: 13.3px;
+    
+    background-color: #262a31; 
+    color: white;
+}
+
+.table .entity-badge.status-fisica,
+.table .entity-badge.status-juridica {
+    background: #8c919d;
+    color: #262a31;
+}
+
+.table .entity-badge.status-ativo {
+    background: #b3e5fc;
+    color: #23548f;
+}
+
+.table .entity-badge.status-alta,
+.table .entity-badge.status-cancelado,
+.table .entity-badge.status-inativo {
+    background: #ffcdd2;
+    color: #c83737;
+}
+
+.table .entity-badge.status-aberto {
+    background: #eccfff;
+    color: #755182;
+}
+
+.table .entity-badge.status-media,
+.table .entity-badge.status-em_andamento {
+    background: #ffd8b2;
+    color: #805b36;
+}
+
+.table .entity-badge.status-concluido {
+    background: #c8e6c9;
+    color: #256029;
+}
+
+.table .entity-badge.status-baixa {
+    background: #b3e5fc;
+    color: #4a6b85;
+}
+
+
+table.managment-grid {
+    width: 100%;   
+    background:#F5F5F5;
+    padding: 10px;
+}
+
+table.managment-grid tbody {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    
+    gap: 20px;
+}
+
+table.managment-grid tbody tr {
+    width: 30%;
+}
+
+table.managment-grid tbody tr td {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+table.managment-btns {
+    display: flex;
+    justify-content: flex-end;
+    /*margin: 20px 0;*/
+}
+
+
+@media (max-width: 780px) {
+    table.managment-grid tbody tr {
+        width: 100%;
+    }
+}

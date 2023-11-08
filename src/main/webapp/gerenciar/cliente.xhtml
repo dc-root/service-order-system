@@ -7,21 +7,22 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-
     <p:panel header="Dados gerais">
         <f:facet name="header">
-            <i class="fa fa-users" aria-hidden="true"></i> Gerenciar Cliente
+            <i class="fa fa-users" aria-hidden="true"></i> Cliente
         </f:facet>
-        
-        <h:form id="form">
+
+        <h:form id="form" style="display: flex;flex-direction: column;gap: 20px">
             <p:panel header="Dados gerais" rendered="#{customerBean.estado ne 'PESQUISANDO'}">
                 <f:facet name="header">
                     <i class="fa fa-pencil-square-o mr-2"></i> Dados gerais
                 </f:facet>
-                
-                <h:panelGrid class="managment-grid-cliente">
+
+                <h:panelGrid class="managment-grid">
                     <p:row>
-                        <p:selectOneMenu id="situacao" style="margin-top: 24px" value="#{customerBean.entity.customerRegistrationStatus}">
+                        <p:outputLabel value="Status" for="situacao"></p:outputLabel>
+
+                        <p:selectOneMenu id="situacao" value="#{customerBean.entity.customerRegistrationStatus}">
                             <f:selectItem itemLabel="Ativo" itemValue="ATIVO"/>
                             <f:selectItem itemLabel="Inativo" itemValue="INATIVO"/>
                         </p:selectOneMenu>
@@ -37,12 +38,26 @@
                         <p:inputText id="inputEmail" value="#{customerBean.entity.email}"></p:inputText>
                     </p:row>
 
-                    <p:row style="display: flex;flex-direction: column;gap: 5px">
-                        <p:outputLabel value="CPF" for="inputCPF"></p:outputLabel>
-                        <p:inputMask  id="inputCPF" disabled="#{customerBean.estado == 'EDITANDO'}" value="#{customerBean.entity.cpf}" mask="999.999.999-99"></p:inputMask>
+                    <p:row>
+                        <p:outputLabel value="Tipo" for="clientType"></p:outputLabel>
+                        <p:selectOneMenu id="clientType" value="#{customerBean.entity.legalCustomerStatus}">
+                            <f:selectItem itemLabel="Pessoa Física" itemValue="FISICA"/>
+                            <f:selectItem itemLabel="Pessoa Jurídica" itemValue="JURIDICA"/>
+                            <p:ajax update="inputIdNum" process="@this" />
+                        </p:selectOneMenu>
                     </p:row>
-                    
-                     <p:row style="display: flex;flex-direction: column;gap: 5px">
+
+                    <p:row style="display: flex;flex-direction: column;gap: 5px">
+                        <p:outputLabel value="CPF/CNPJ" for="inputIdNum"></p:outputLabel>
+                        <p:inputMask
+                            id="inputIdNum"
+                            disabled="#{customerBean.estado == 'EDITANDO'}"
+                            value="#{customerBean.entity.identificationNumber}"
+                            mask="#{customerBean.entity.legalCustomerStatus == 'JURIDICA' ? '99.999.999/9999-99' : '999.999.999-99'}"
+                        ></p:inputMask>
+                    </p:row>
+
+                    <p:row style="display: flex;flex-direction: column;gap: 5px">
                         <p:outputLabel value="Telefone" for="inputPhone"></p:outputLabel>
                         <p:inputMask  id="inputPhone" value="#{customerBean.entity.phoneNumber}" mask="(99) 9999-9999"></p:inputMask>
                     </p:row>
@@ -55,18 +70,21 @@
                     </p:row>
 
                     <p:row>
-                        <p:selectOneMenu id="clientType" style="margin-top: 24px" value="#{customerBean.entity.legalCustomerStatus}">
-                            <f:selectItem itemLabel="Selecione" itemValue="#{null}" noSelectionOption="true"/>
-                            <f:selectItem itemLabel="Pessoa Física" itemValue="FISICA"/>
-                            <f:selectItem itemLabel="Pessoa Jurídica" itemValue="JURIDICA"/>
-                        </p:selectOneMenu>
-                    </p:row>
-                    
-                    <p:row>
                         <p:outputLabel value="Obs" for="@next"></p:outputLabel>
                         <p:inputTextarea rows="3" cols="33" value="#{customerBean.entity.obs}"/>
                     </p:row>
+                </h:panelGrid>
+            </p:panel>
 
+            <p:panel header="Dados de Endereço" rendered="#{customerBean.estado ne 'PESQUISANDO'}">
+                <f:facet name="header">
+                    <i class="fa fa-map mr-2"></i> Dados de Endereço
+                </f:facet>
+                <p>Inputs para endereços...</p>
+            </p:panel>
+
+            <p:panel rendered="#{customerBean.estado ne 'PESQUISANDO'}">
+                <h:panelGrid class="managment-btns">
                     <p:row>
                         <p:commandButton
                             icon="fa fa-solid fa-save"
@@ -75,7 +93,7 @@
                             rendered="#{customerBean.estado == 'CRIANDO'}"
                             value="Salvar"
                             style="width: auto"
-                            ></p:commandButton>
+                        ></p:commandButton>
 
                         <p:commandButton
                             icon="fa fa-solid fa-refresh"
@@ -84,7 +102,7 @@
                             rendered="#{customerBean.estado == 'EDITANDO'}"
                             value="Atualizar"
                             style="width: auto"
-                            ></p:commandButton>
+                        ></p:commandButton>
 
                         <p:spacer width="4px"></p:spacer>
 
@@ -94,7 +112,7 @@
                             actionListener="#{customerBean.listar()}"
                             value="Cancelar"
                             style="width: auto"
-                            ></p:commandButton>
+                        ></p:commandButton>
                     </p:row>
                 </h:panelGrid>
             </p:panel>
@@ -102,15 +120,15 @@
             <p:dataTable
                 id="dt-clientes"
                 widgetVar="dtClientes"
-                var="entity"
+                var="rCliente"
                 value="#{customerBean.entitys}"
                 reflow="true"
-                styleClass="clientes-table"
-                rowKey="#{clente.id}"
+                styleClass="table"
+                rowKey="#{rCliente.id}"
                 paginator="true"
                 rows="10"
                 paginatorPosition="bottom"
-                >
+            >
                 <f:facet name="header">
                     <div class="products-table-header">
                         <p:commandButton
@@ -120,7 +138,7 @@
                             process="@this"
                             actionListener="#{customerBean.novo()}"
                             value="Novo"
-                            ></p:commandButton>
+                        ></p:commandButton>
 
                         <span class="filter-container ui-input-icon-left">
                             <i class="pi pi-search"></i>
@@ -130,73 +148,79 @@
                 </f:facet>
 
                 <p:column headerText="ID" width="30">
-                    <h:outputText value="#{entity.id}" />
+                    <h:outputText value="#{rCliente.id}" />
                 </p:column>
 
-                <p:column headerText="Nome" filterBy="#{entity.name}">
-                    <h:outputText value="#{entity.name}" />
+                <p:column headerText="Nome" filterBy="#{rCliente.name}">
+                    <h:outputText value="#{rCliente.name}" />
                 </p:column>
 
-                <p:column headerText="Status" filterBy="#{entity.customerRegistrationStatus}" width="50">
+                <p:column headerText="Status" filterBy="#{rCliente.customerRegistrationStatus}" width="50">
                     <h:outputText
-                        value="#{entity.customerRegistrationStatus.toString().toLowerCase()}"
-                        styleClass="entity-badge status-#{entity.customerRegistrationStatus.toString().toLowerCase()}"
-                        />
+                        value="#{rCliente.customerRegistrationStatus.toString().toLowerCase()}"
+                        styleClass="entity-badge status-#{rCliente.customerRegistrationStatus.toString().toLowerCase()}"
+                    />
                 </p:column>
 
-                <p:column headerText="Email" filterBy="#{entity.email}" width="200">
-                    <h:outputText value="#{entity.email}"></h:outputText>
-                </p:column>
-                
-                <p:column headerText="Telefone" filterBy="#{entity.phoneNumber}">
-                    <h:outputText value="#{entity.phoneNumber}"></h:outputText>
+                <p:column headerText="Email" filterBy="#{rCliente.email}" width="200">
+                    <h:outputText value="#{rCliente.email}"></h:outputText>
                 </p:column>
 
-                <p:column headerText="CPF" filterBy="#{entity.cpf}">
-                    <h:outputText value="#{entity.cpf}"></h:outputText>
+                <p:column headerText="Telefone" filterBy="#{rCliente.phoneNumber}">
+                    <h:outputText value="#{rCliente.phoneNumber}"></h:outputText>
                 </p:column>
 
-                <p:column headerText="Tipo" filterBy="#{entity.legalCustomerStatus}" width="50">
+                <p:column headerText="CPF/CNPJ" filterBy="#{rCliente.identificationNumber}">
+                    <h:outputText value="#{rCliente.identificationNumber}"></h:outputText>
+                </p:column>
+
+                <p:column headerText="Tipo" filterBy="#{rCliente.legalCustomerStatus}" width="50">
                     <h:outputText
-                        value="#{entity.legalCustomerStatus.toString().toLowerCase()}"
-                        styleClass="entity-badge status-#{entity.legalCustomerStatus.toString().toLowerCase()}"
-                        />
+                        value="#{rCliente.legalCustomerStatus.toString().toLowerCase()}"
+                        styleClass="entity-badge status-#{rCliente.legalCustomerStatus.toString().toLowerCase()}"
+                    />
                 </p:column>
 
-                <p:column headerText="Data Nascimento" filterBy="#{entity.birthDate}">
-                    <h:outputText value="#{entity.birthDate}">
-                        <f:convertDateTime pattern="dd/MM/yyyy"></f:convertDateTime>  
+                <p:column headerText="Data Nascimento" filterBy="#{rCliente.birthDate}">
+                    <h:outputText value="#{rCliente.birthDate}">
+                        <f:convertDateTime pattern="dd/MM/yyyy"></f:convertDateTime>
                     </h:outputText>
                 </p:column>
 
-                <p:column exportable="false" style="display: flex;gap: 4px">
+                <p:column headerText="Ação" exportable="false" >
                     <p:commandButton
                         icon="pi pi-pencil"
-                        actionListener="#{customerBean.editar(entity)}"
+                        actionListener="#{customerBean.setEstado('EDITANDO')}"
                         styleClass="edit-button rounded-button ui-button-success"
                         update="@form"
-                        ></p:commandButton>
+                        >
+                        <f:setPropertyActionListener value="#{rCliente}" target="#{customerBean.entity}" />
+                    </p:commandButton>
 
                     <p:commandButton
                         class="ui-button-warning rounded-button"
+                        style="margin-left: 4px"
                         icon="pi pi-trash"
-                        oncomplete="PF('deleteProductDialog').show()"
+                        process="@this"
                         update="@form"
-                        ></p:commandButton>
+                        oncomplete="PF('deleteCustomerDialog').show()"
+                        >
+                        <f:setPropertyActionListener value="#{rCliente}" target="#{customerBean.entity}" />
+                    </p:commandButton>
 
                     <p:confirmDialog
-                        widgetVar="deleteProductDialog"
+                        widgetVar="deleteCustomerDialog"
                         showEffect="fade"
                         width="300"
-                        message="Tem certeza que quero remover este cliente?"
+                        message="Tem certeza que quero remover o(a) cliente #{customerBean.entity.name}?"
                         header="Confirmar"
                         >
                         <p:commandButton
                             value="Sim"
                             icon="pi pi-check"
-                            actionListener="#{customerBean.remover(entity)}"
+                            actionListener="#{customerBean.remover()}"
                             process="@this"
-                            oncomplete="PF('deleteProductDialog').hide()"
+                            oncomplete="PF('deleteCustomerDialog').hide()"
                             update="@form"
                             />
                         <p:commandButton
@@ -204,13 +228,13 @@
                             type="button"
                             styleClass="ui-button-secondary"
                             icon="pi pi-times"
-                            onclick="PF('deleteProductDialog').hide()"
+                            onclick="PF('deleteCustomerDialog').hide()"
                             update="@form"
                             />
                     </p:confirmDialog>
                 </p:column>
-
             </p:dataTable>
+            
         </h:form>
     </p:panel>
 
