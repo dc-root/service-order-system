@@ -4,6 +4,7 @@ import br.edu.iftm.serviceordersystem.entity.ServiceOrder;
 import br.edu.iftm.serviceordersystem.util.StatusOs;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -29,6 +30,7 @@ public class ServiceOrderLogic implements GenericLogic<ServiceOrder> {
 
     @Override
     public List<ServiceOrder> listar() {
+        Collections.reverse(serviceOrders);
         return serviceOrders;
     }
 

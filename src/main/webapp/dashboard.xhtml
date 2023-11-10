@@ -56,7 +56,7 @@
             <p:lineChart model="#{serviceOrderBean.lineModelOsAnnual}" style="max-width: 100%; height: 350px;"/>
         </p:panel>
 
-        <p:button style="display: none" onclick="#{serviceOrderBean.updateAllCharts()}" value="update"></p:button>
+        <p:button style="display: none" onclick="#{serviceOrderBean.updateAllCharts()}" />
     </p:outputPanel>
     <p:poll interval="1000" update="chartsPanel" />
 
@@ -68,8 +68,6 @@
                 reflow="true"
                 styleClass="table"
                 value="#{serviceOrderBean.entitys}"
-                paginator="true"
-                paginatorPosition="bottom"
                 rows="10"
             >
                 <p:column headerText="ID" width="30">
