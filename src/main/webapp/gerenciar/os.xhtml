@@ -132,7 +132,19 @@
                             <f:selectItem itemLabel="Em andamento" itemValue="EM_ANDAMENTO" />
                             <f:selectItem itemLabel="Cancelado" itemValue="CANCELADO" />
                             <f:selectItem itemLabel="Concluido" itemValue="CONCLUIDO" />
+                            
+                            <p:ajax
+                                process="@this"
+                                listener="#{serviceOrderBean.entity.setCompletionDate(serviceOrderBean.handleStatusChange(serviceOrderBean.entity.serviceOrderStatus))}"
+                                update="completionDate"
+                            />
                         </p:selectOneMenu>
+                    </p:row>
+                    
+                    <p:row rendered="false">
+                        <p:inputMask id="completionDate" value="#{serviceOrderBean.entity.completionDate}" mask="99/99/9999">
+                            <f:convertDateTime pattern="dd/MM/yyyy"></f:convertDateTime>
+                        </p:inputMask>
                     </p:row>
                     
                     <p:row>

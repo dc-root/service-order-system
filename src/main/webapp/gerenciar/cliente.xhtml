@@ -43,6 +43,7 @@
                         <p:selectOneMenu id="clientType" value="#{customerBean.entity.legalCustomerStatus}">
                             <f:selectItem itemLabel="Pessoa Física" itemValue="FISICA"/>
                             <f:selectItem itemLabel="Pessoa Jurídica" itemValue="JURIDICA"/>
+                            
                             <p:ajax update="inputIdNum" process="@this" />
                         </p:selectOneMenu>
                     </p:row>

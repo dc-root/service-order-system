@@ -44,7 +44,7 @@ header.header .logo {
 
 aside {
     grid-area: aside;
-    /*background-color: #262a31;*/
+    background-color: white;
     width: 300px;
     padding: 0px 2px;
     overflow-y: auto;
@@ -65,14 +65,12 @@ aside.hidden form {
 aside div.menu {
     width: 100%;
     padding: 0;
-    background: transparent;
     color: white;
     
     border-radius: 0;
     
     border-right: 0;
     border-left: 0;
-    /*border-color: rgba(54, 58, 66, 1);*/
 }
 
 div.content {
