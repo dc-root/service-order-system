@@ -96,18 +96,18 @@ public class ServiceOrderBean extends GenericBean<ServiceOrder, ServiceOrderLogi
 
         LineChartDataSet dataSet = new LineChartDataSet();
         List<Object> values = Arrays.asList(
-            logic.listarPorMesAbertura(1).size(),
-            logic.listarPorMesAbertura(2).size(),
-            logic.listarPorMesAbertura(3).size(),
-            logic.listarPorMesAbertura(4).size(),
-            logic.listarPorMesAbertura(5).size(),
-            logic.listarPorMesAbertura(6).size(),
-            logic.listarPorMesAbertura(7).size(),
-            logic.listarPorMesAbertura(8).size(),
-            logic.listarPorMesAbertura(9).size(),
-            logic.listarPorMesAbertura(10).size(),
-            logic.listarPorMesAbertura(11).size(),
-            logic.listarPorMesAbertura(12).size()
+            logic.listarPorMesDeAbertura(1).size(),
+            logic.listarPorMesDeAbertura(2).size(),
+            logic.listarPorMesDeAbertura(3).size(),
+            logic.listarPorMesDeAbertura(4).size(),
+            logic.listarPorMesDeAbertura(5).size(),
+            logic.listarPorMesDeAbertura(6).size(),
+            logic.listarPorMesDeAbertura(7).size(),
+            logic.listarPorMesDeAbertura(8).size(),
+            logic.listarPorMesDeAbertura(9).size(),
+            logic.listarPorMesDeAbertura(10).size(),
+            logic.listarPorMesDeAbertura(11).size(),
+            logic.listarPorMesDeAbertura(12).size()
         );
         dataSet.setData(values);
         

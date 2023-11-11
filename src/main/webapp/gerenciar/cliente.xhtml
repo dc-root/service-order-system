@@ -43,7 +43,7 @@
                         <p:selectOneMenu id="clientType" value="#{customerBean.entity.legalCustomerStatus}">
                             <f:selectItem itemLabel="Pessoa Física" itemValue="FISICA"/>
                             <f:selectItem itemLabel="Pessoa Jurídica" itemValue="JURIDICA"/>
-                            
+
                             <p:ajax update="inputIdNum" process="@this" />
                         </p:selectOneMenu>
                     </p:row>
@@ -55,7 +55,7 @@
                             disabled="#{customerBean.estado == 'EDITANDO'}"
                             value="#{customerBean.entity.identificationNumber}"
                             mask="#{customerBean.entity.legalCustomerStatus == 'JURIDICA' ? '99.999.999/9999-99' : '999.999.999-99'}"
-                        ></p:inputMask>
+                            ></p:inputMask>
                     </p:row>
 
                     <p:row style="display: flex;flex-direction: column;gap: 5px">
@@ -94,7 +94,7 @@
                             rendered="#{customerBean.estado == 'CRIANDO'}"
                             value="Salvar"
                             style="width: auto"
-                        ></p:commandButton>
+                            ></p:commandButton>
 
                         <p:commandButton
                             icon="fa fa-solid fa-refresh"
@@ -103,7 +103,7 @@
                             rendered="#{customerBean.estado == 'EDITANDO'}"
                             value="Atualizar"
                             style="width: auto"
-                        ></p:commandButton>
+                            ></p:commandButton>
 
                         <p:spacer width="4px"></p:spacer>
 
@@ -113,7 +113,7 @@
                             actionListener="#{customerBean.listar()}"
                             value="Cancelar"
                             style="width: auto"
-                        ></p:commandButton>
+                            ></p:commandButton>
                     </p:row>
                 </h:panelGrid>
             </p:panel>
@@ -129,7 +129,7 @@
                 paginator="true"
                 rows="10"
                 paginatorPosition="bottom"
-            >
+                >
                 <f:facet name="header">
                     <div class="products-table-header">
                         <p:commandButton
@@ -139,7 +139,7 @@
                             process="@this"
                             actionListener="#{customerBean.novo()}"
                             value="Novo"
-                        ></p:commandButton>
+                            ></p:commandButton>
 
                         <span class="filter-container ui-input-icon-left">
                             <i class="pi pi-search"></i>
@@ -160,7 +160,7 @@
                     <h:outputText
                         value="#{rCliente.customerRegistrationStatus.toString().toLowerCase()}"
                         styleClass="entity-badge status-#{rCliente.customerRegistrationStatus.toString().toLowerCase()}"
-                    />
+                        />
                 </p:column>
 
                 <p:column headerText="Email" filterBy="#{rCliente.email}" width="200">
@@ -171,15 +171,15 @@
                     <h:outputText value="#{rCliente.phoneNumber}"></h:outputText>
                 </p:column>
 
-                <p:column headerText="CPF/CNPJ" filterBy="#{rCliente.identificationNumber}">
-                    <h:outputText value="#{rCliente.identificationNumber}"></h:outputText>
-                </p:column>
-
                 <p:column headerText="Tipo" filterBy="#{rCliente.legalCustomerStatus}" width="50">
                     <h:outputText
                         value="#{rCliente.legalCustomerStatus.toString().toLowerCase()}"
                         styleClass="entity-badge status-#{rCliente.legalCustomerStatus.toString().toLowerCase()}"
-                    />
+                        />
+                </p:column>
+
+                <p:column headerText="CPF/CNPJ" filterBy="#{rCliente.identificationNumber}">
+                    <h:outputText value="#{rCliente.identificationNumber}"></h:outputText>
                 </p:column>
 
                 <p:column headerText="Data Nascimento" filterBy="#{rCliente.birthDate}">
@@ -188,7 +188,7 @@
                     </h:outputText>
                 </p:column>
 
-                <p:column headerText="Ação" exportable="false" >
+                <p:column headerText="Ação" exportable="false" width="135">
                     <p:commandButton
                         icon="pi pi-pencil"
                         actionListener="#{customerBean.setEstado('EDITANDO')}"
@@ -233,9 +233,58 @@
                             update="@form"
                             />
                     </p:confirmDialog>
+
+                    <p:commandButton
+                        icon="pi pi-eye"
+                        styleClass="rounded-button"
+                        style="margin-left: 4px"
+                        process="@this"
+                        update="@form"
+                        oncomplete="PF('showOSDialog').show()"
+                        >
+                        <f:setPropertyActionListener value="#{rCliente}" target="#{customerBean.entity}" />
+                    </p:commandButton>
+
+                    <p:confirmDialog
+                        widgetVar="showOSDialog"
+                        showEffect="fade"
+                        header="#{customerBean.entity.name}"
+                        width="480"
+                    >
+                        <p:panelGrid columns="2"  layout="tabular">
+                            <h:outputText value="ID"/>
+                            <h:outputText value="#{customerBean.entity.id}" />
+
+                            <h:outputText value="Status"/>
+                            <h:outputText
+                                value="#{customerBean.entity.customerRegistrationStatus.toString().toLowerCase()}"
+                                styleClass="entity-badge status-#{customerBean.entity.customerRegistrationStatus.toString().toLowerCase()}"
+                            />
+
+                            <h:outputText value="Email"/>
+                            <h:outputText value="#{customerBean.entity.email}"></h:outputText>
+
+                            <h:outputText value="Telefone"/>
+                            <h:outputText value="#{customerBean.entity.phoneNumber}"></h:outputText>
+
+                            <h:outputText value="Tipo"/>
+                            <h:outputText
+                                value="#{customerBean.entity.legalCustomerStatus.toString().toLowerCase()}"
+                                styleClass="entity-badge status-#{customerBean.entity.legalCustomerStatus.toString().toLowerCase()}"
+                            />
+
+                            <h:outputText value="CPF/CNPJ"/>
+                            <h:outputText value="#{customerBean.entity.identificationNumber}"></h:outputText>
+
+                            <h:outputText value="Data Nascimento"/>
+                            <h:outputText value="#{customerBean.entity.birthDate}">
+                                <f:convertDateTime pattern="dd/MM/yyyy"></f:convertDateTime>
+                            </h:outputText>
+                        </p:panelGrid>
+                    </p:confirmDialog>
                 </p:column>
             </p:dataTable>
-            
+
         </h:form>
     </p:panel>
 

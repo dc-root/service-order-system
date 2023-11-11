@@ -60,7 +60,7 @@
     </p:outputPanel>
     <p:poll interval="1000" update="chartsPanel" />
 
-    <p:outputPanel id="tablePainel" style="display: flex;margin-top: 10px;gap: 5px" >
+    <p:outputPanel id="tablePainel" style="display: flex;margin-top: 10px;gap: 5px">
         <p:panel>
             <p:dataTable
                 id="serviceOrders"
@@ -74,11 +74,11 @@
                     <h:outputText value="#{rOs.id}" />
                 </p:column>
 
-                <p:column headerText="Numero do serviço" filterBy="#{rOs.serviceNumber}">
+                <p:column headerText="Numero" filterBy="#{rOs.serviceNumber}">
                     <h:outputText value="#{rOs.serviceNumber.toString().substring(0, 8)}" />
                 </p:column>
 
-                <p:column headerText="Nome" filterBy="#{rOs.serviceName}">
+                <p:column headerText="Serviço" filterBy="#{rOs.serviceName}">
                     <h:outputText value="#{rOs.serviceName}" />
                 </p:column>
 
@@ -86,7 +86,7 @@
                     <h:outputText value="R$ #{rOs.realCost}"></h:outputText>
                 </p:column>
 
-                <p:column headerText="Aberto em" filterBy="#{rOs.openingDate}">
+                <p:column headerText="Aberto" filterBy="#{rOs.openingDate}">
                     <h:outputText value="#{rOs.openingDate}">
                         <f:convertDateTime pattern="dd/MM/yyyy"></f:convertDateTime>
                     </h:outputText>

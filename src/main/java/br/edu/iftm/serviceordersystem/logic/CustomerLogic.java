@@ -4,6 +4,7 @@ import br.edu.iftm.serviceordersystem.entity.Customer;
 import br.edu.iftm.serviceordersystem.util.LegalEntityStatus;
 import br.edu.iftm.serviceordersystem.util.RegistrationStatus;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -17,6 +18,11 @@ public class CustomerLogic implements GenericLogic<Customer> {
     @PostConstruct
     public void init() {
         initializeData();
+        
+        long inicio = new Date().getTime() + 30;
+        while (inicio > new Date().getTime()) {
+
+        }
         listar();
     }
 
@@ -66,11 +72,12 @@ public class CustomerLogic implements GenericLogic<Customer> {
         return null;
     }
     
+    // Teste (carga inicial)
     public void initializeData() {
         Customer customer1 = new Customer();
         customer1.setId(id++);
         customer1.setName("João Silva");
-        customer1.setIdentificationNumber("12345678900"); // Exemplo de CPF
+        customer1.setIdentificationNumber("12345678900");
         customer1.setLegalCustomerStatus(LegalEntityStatus.FISICA);
         customer1.setCustomerRegistrationStatus(RegistrationStatus.ATIVO);
         customer1.setPhoneNumber("1122334455");
@@ -80,7 +87,7 @@ public class CustomerLogic implements GenericLogic<Customer> {
         Customer customer2 = new Customer();
         customer2.setId(id++);
         customer2.setName("Empresa Exemplo LTDA");
-        customer2.setIdentificationNumber("12345678000199"); // Exemplo de CNPJ
+        customer2.setIdentificationNumber("12345678000199");
         customer2.setLegalCustomerStatus(LegalEntityStatus.JURIDICA);
         customer2.setCustomerRegistrationStatus(RegistrationStatus.INATIVO);
         customer2.setPhoneNumber("9988776655");
@@ -110,7 +117,7 @@ public class CustomerLogic implements GenericLogic<Customer> {
         Customer customer5 = new Customer();
         customer5.setId(id++);
         customer5.setName("José Almeida");
-        customer5.setIdentificationNumber("56789012300"); // Exemplo de CPF
+        customer5.setIdentificationNumber("56789012300");
         customer5.setLegalCustomerStatus(LegalEntityStatus.FISICA);
         customer5.setCustomerRegistrationStatus(RegistrationStatus.INATIVO);
         customer5.setPhoneNumber("1122334455");
@@ -120,7 +127,7 @@ public class CustomerLogic implements GenericLogic<Customer> {
         Customer customer6 = new Customer();
         customer6.setId(id++);
         customer6.setName("Empresa XYZ LTDA");
-        customer6.setIdentificationNumber("76543210900177"); // Exemplo de CNPJ
+        customer6.setIdentificationNumber("76543210900177");
         customer6.setLegalCustomerStatus(LegalEntityStatus.JURIDICA);
         customer6.setCustomerRegistrationStatus(RegistrationStatus.ATIVO);
         customer6.setPhoneNumber("9988776655");
@@ -130,7 +137,7 @@ public class CustomerLogic implements GenericLogic<Customer> {
         Customer customer7 = new Customer();
         customer7.setId(id++);
         customer7.setName("Laura Fernandes");
-        customer7.setIdentificationNumber("34567890123"); // Exemplo de CPF
+        customer7.setIdentificationNumber("34567890123");
         customer7.setLegalCustomerStatus(LegalEntityStatus.FISICA);
         customer7.setCustomerRegistrationStatus(RegistrationStatus.ATIVO);
         customer7.setPhoneNumber("5544332211");
@@ -140,7 +147,7 @@ public class CustomerLogic implements GenericLogic<Customer> {
         Customer customer8 = new Customer();
         customer8.setId(id++);
         customer8.setName("Empresa 123 LTDA");
-        customer8.setIdentificationNumber("65432109800111"); // Exemplo de CNPJ
+        customer8.setIdentificationNumber("65432109800111");
         customer8.setLegalCustomerStatus(LegalEntityStatus.JURIDICA);
         customer8.setCustomerRegistrationStatus(RegistrationStatus.INATIVO);
         customer8.setPhoneNumber("6677889900");
@@ -150,7 +157,7 @@ public class CustomerLogic implements GenericLogic<Customer> {
         Customer customer9 = new Customer();
         customer9.setId(id++);
         customer9.setName("Rafaela Oliveira");
-        customer9.setIdentificationNumber("21098765400"); // Exemplo de CPF
+        customer9.setIdentificationNumber("21098765400");
         customer9.setLegalCustomerStatus(LegalEntityStatus.FISICA);
         customer9.setCustomerRegistrationStatus(RegistrationStatus.INATIVO);
         customer9.setPhoneNumber("1122334455");
@@ -160,7 +167,7 @@ public class CustomerLogic implements GenericLogic<Customer> {
         Customer customer10 = new Customer();
         customer10.setId(id++);
         customer10.setName("Empresa Beta LTDA");
-        customer10.setIdentificationNumber("78901234000155"); // Exemplo de CNPJ
+        customer10.setIdentificationNumber("78901234000155");
         customer10.setLegalCustomerStatus(LegalEntityStatus.JURIDICA);
         customer10.setCustomerRegistrationStatus(RegistrationStatus.ATIVO);
         customer10.setPhoneNumber("9988776655");

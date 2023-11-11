@@ -169,12 +169,16 @@
                 <p:column headerText="Telefone" filterBy="#{rTecnico.phoneNumber}">
                     <h:outputText value="#{rTecnico.phoneNumber}"></h:outputText>
                 </p:column>
-
+                
                 <p:column headerText="Tipo" filterBy="#{rTecnico.legalTechnicianStatus}" width="50">
                     <h:outputText
                         value="#{rTecnico.legalTechnicianStatus.toString().toLowerCase()}"
                         styleClass="entity-badge status-#{rTecnico.legalTechnicianStatus.toString().toLowerCase()}"
                         />
+                </p:column>
+                
+                <p:column headerText="CPF/CNPJ" filterBy="#{rTecnico.identificationNumber}">
+                    <h:outputText value="#{rTecnico.identificationNumber}"></h:outputText>
                 </p:column>
 
                 <p:column headerText="Ação" exportable="false" >
@@ -220,6 +224,53 @@
                             onclick="PF('deleteTechnicianDialog').hide()"
                             update="@form"
                         />
+                    </p:confirmDialog>
+                    
+                    <p:commandButton
+                        icon="pi pi-eye"
+                        styleClass="rounded-button"
+                        style="margin-left: 4px"
+                        process="@this"
+                        update="@form"
+                        oncomplete="PF('showOSDialog').show()"
+                        >
+                        <f:setPropertyActionListener value="#{rTecnico}" target="#{technicianBean.entity}" />
+                    </p:commandButton>
+                    
+                    <p:confirmDialog
+                        widgetVar="showOSDialog"
+                        showEffect="fade"
+                        header="#{technicianBean.entity.name}"
+                        width="480"
+                    >
+                        <p:panelGrid columns="2"  layout="tabular">
+                            <h:outputText value="ID"/>
+                            <h:outputText value="#{technicianBean.entity.id}" />
+                            
+                            <h:outputText value="Especialização" />
+                            <h:outputText value="#{technicianBean.entity.specialization}" />
+
+                            <h:outputText value="Status"/>
+                            <h:outputText
+                                value="#{technicianBean.entity.technicianRegistrationStatus.toString().toLowerCase()}"
+                                styleClass="entity-badge status-#{technicianBean.entity.technicianRegistrationStatus.toString().toLowerCase()}"
+                            />
+
+                            <h:outputText value="Email"/>
+                            <h:outputText value="#{technicianBean.entity.email}"></h:outputText>
+
+                            <h:outputText value="Telefone"/>
+                            <h:outputText value="#{technicianBean.entity.phoneNumber}"></h:outputText>
+
+                            <h:outputText value="Tipo"/>
+                            <h:outputText
+                                value="#{technicianBean.entity.legalTechnicianStatus.toString().toLowerCase()}"
+                                styleClass="entity-badge status-#{technicianBean.entity.legalTechnicianStatus.toString().toLowerCase()}"
+                            />
+
+                            <h:outputText value="CPF/CNPJ"/>
+                            <h:outputText value="#{technicianBean.entity.identificationNumber}"></h:outputText>
+                        </p:panelGrid>
                     </p:confirmDialog>
                 </p:column>
 

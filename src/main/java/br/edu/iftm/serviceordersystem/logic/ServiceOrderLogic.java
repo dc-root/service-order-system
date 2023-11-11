@@ -16,12 +16,17 @@ import javax.annotation.PostConstruct;
 
 public class ServiceOrderLogic implements GenericLogic<ServiceOrder> {
 
-    private List<ServiceOrder> serviceOrders = new ArrayList<>();
+    final private List<ServiceOrder> serviceOrders = new ArrayList<>();
     private Long id = 1L;
 
     @PostConstruct
     public void init() {
         initializeData();
+        
+        long inicio = new Date().getTime() + 30;
+        while (inicio > new Date().getTime()) {
+
+        }
         listar();
     }
 
@@ -51,7 +56,7 @@ public class ServiceOrderLogic implements GenericLogic<ServiceOrder> {
                 .collect(Collectors.toList());
     }
 
-    public List<ServiceOrder> listarPorMesAbertura(int mes) {
+    public List<ServiceOrder> listarPorMesDeAbertura(int mes) {
         return serviceOrders.stream()
                 .filter(order -> {
                     Calendar calendar = Calendar.getInstance();
@@ -72,7 +77,6 @@ public class ServiceOrderLogic implements GenericLogic<ServiceOrder> {
                 serviceOrder.setServiceName(entity.getServiceName());
                 serviceOrder.setRealCost(entity.getRealCost());
 
-                // serviceOrder.setOpeningDate(entity.getOpeningDate()); // Talvez??
                 serviceOrder.setCompletionDate(entity.getCompletionDate());
 
                 serviceOrder.setResponsibleTechnician(entity.getResponsibleTechnician());
@@ -88,7 +92,7 @@ public class ServiceOrderLogic implements GenericLogic<ServiceOrder> {
         return updateEntity;
     }
 
-    // Teste
+    // Teste (carga inicial)
     public void initializeData() {
         Random random = new Random();
 

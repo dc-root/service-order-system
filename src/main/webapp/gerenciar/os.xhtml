@@ -32,7 +32,7 @@
                                 value="#{serviceOrderBean.entity.serviceNumber}"
                                 readonly="true"
                                 disabled="true"
-                            />
+                                />
                             <p:commandButton icon="fa fa-refresh" actionListener="#{serviceOrderBean.entity.setServiceNumber(serviceOrderBean.gerarUUID())}" update="serviceNumber"></p:commandButton>
                         </div>
                     </p:row>
@@ -45,7 +45,7 @@
                             symbol="R$ "
                             symbolPosition="p"
                             decimalSeparator="," thousandSeparator="."
-                        />
+                            />
                     </p:row>
 
                     <p:row rendered="#{false}"> <!-- customerBean.entitys.size() > 0 -->
@@ -56,32 +56,32 @@
                             var="rsCliente" filter="true"
                             filterMatchMode="startsWith" filterNormalize="true"
                             panelStyle="width:350px"
-                        >
+                            >
                             <f:selectItems
                                 value="#{customerBean.entitys}"
                                 var="rCliente"
                                 itemLabel="#{rCliente.name}"
                                 itemValue="#{rCliente}"
-                            />
+                                />
 
                             <p:column>
                                 <f:facet name="header">
                                     <h:outputText value="Nome"/>
                                 </f:facet>
-                                
+
                                 <h:outputText value="#{rsCliente.name}"/>
                             </p:column>
-                            
+
                             <p:column>
                                 <f:facet name="header">
                                     <h:outputText value="E-mail"/>
                                 </f:facet>
-                                
+
                                 <h:outputText value="#{rsCliente.email}"/>
                             </p:column>
                         </p:selectOneMenu>
                     </p:row>
-                    
+
                     <p:row rendered="#{false}">  <!-- technicianBean.entitys.size() > 0 -->
                         <p:outputLabel for="@next" value="Tecnico" />
                         <p:selectOneMenu
@@ -90,41 +90,41 @@
                             var="rsTechnician" filter="true"
                             filterMatchMode="startsWith" filterNormalize="true"
                             panelStyle="width:450px"
-                        >
+                            >
 
                             <f:selectItems
                                 value="#{technicianBean.entitys}"
                                 var="rTechnician"
                                 itemLabel="#{rTechnician.name}"
                                 itemValue="#{rTechnician}"
-                            />
+                                />
 
                             <p:column>
                                 <f:facet name="header">
                                     <h:outputText value="Nome"/>
                                 </f:facet>
-                                
+
                                 <h:outputText value="#{rsTechnician.name}"/>
                             </p:column>
-                            
+
                             <p:column>
                                 <f:facet name="header">
                                     <h:outputText value="E-mail"/>
                                 </f:facet>
-                                
+
                                 <h:outputText value="#{rsTechnician.email}"/>
                             </p:column>
-                            
+
                             <p:column>
                                 <f:facet name="header">
                                     <h:outputText value="Especialidade"/>
                                 </f:facet>
-                                
+
                                 <h:outputText value="#{rsTechnician.specialization}"/>
                             </p:column>
                         </p:selectOneMenu>
                     </p:row>
-                    
+
                     <p:row>
                         <p:outputLabel value="Status" for="osStatus"></p:outputLabel>
                         <p:selectOneMenu id="osStatus" value="#{serviceOrderBean.entity.serviceOrderStatus}">
@@ -132,21 +132,21 @@
                             <f:selectItem itemLabel="Em andamento" itemValue="EM_ANDAMENTO" />
                             <f:selectItem itemLabel="Cancelado" itemValue="CANCELADO" />
                             <f:selectItem itemLabel="Concluido" itemValue="CONCLUIDO" />
-                            
+
                             <p:ajax
                                 process="@this"
                                 listener="#{serviceOrderBean.entity.setCompletionDate(serviceOrderBean.handleStatusChange(serviceOrderBean.entity.serviceOrderStatus))}"
                                 update="completionDate"
-                            />
+                                />
                         </p:selectOneMenu>
                     </p:row>
-                    
+
                     <p:row rendered="false">
                         <p:inputMask id="completionDate" value="#{serviceOrderBean.entity.completionDate}" mask="99/99/9999">
                             <f:convertDateTime pattern="dd/MM/yyyy"></f:convertDateTime>
                         </p:inputMask>
                     </p:row>
-                    
+
                     <p:row>
                         <p:outputLabel value="Prioridade" for="osPrority"></p:outputLabel>
                         <p:selectOneMenu id="osPrority" value="#{serviceOrderBean.entity.priority}">
@@ -204,7 +204,7 @@
                 paginator="true"
                 rows="10"
                 paginatorPosition="bottom"
-            >
+                >
                 <f:facet name="header">
                     <div class="products-table-header">
                         <p:commandButton
@@ -214,7 +214,7 @@
                             process="@this"
                             actionListener="#{serviceOrderBean.novo()}"
                             value="Novo"
-                        ></p:commandButton>
+                            ></p:commandButton>
 
                         <span class="filter-container ui-input-icon-left">
                             <i class="pi pi-search"></i>
@@ -227,11 +227,11 @@
                     <h:outputText value="#{rOs.id}" />
                 </p:column>
 
-                <p:column headerText="Numero do serviço" filterBy="#{rOs.serviceNumber}">
+                <p:column headerText="Numero" filterBy="#{rOs.serviceNumber}">
                     <h:outputText value="#{rOs.serviceNumber.toString().substring(0, 8)}" />
                 </p:column>
 
-                <p:column headerText="Nome" filterBy="#{rOs.serviceName}">
+                <p:column headerText="Serviço" filterBy="#{rOs.serviceName}">
                     <h:outputText value="#{rOs.serviceName}" />
                 </p:column>
 
@@ -239,13 +239,13 @@
                     <h:outputText value="R$ #{rOs.realCost}"></h:outputText>
                 </p:column>
 
-                <p:column headerText="Aberto em" filterBy="#{rOs.openingDate}">
+                <p:column headerText="Aberto" filterBy="#{rOs.openingDate}">
                     <h:outputText value="#{rOs.openingDate}">
                         <f:convertDateTime pattern="dd/MM/yyyy"></f:convertDateTime>
                     </h:outputText>
                 </p:column>
 
-                <p:column headerText="Finalizado em" filterBy="#{rOs.completionDate}">
+                <p:column headerText="Finalizado" filterBy="#{rOs.completionDate}">
                     <h:outputText value="#{rOs.completionDate}">
                         <f:convertDateTime pattern="dd/MM/yyyy"></f:convertDateTime>
                     </h:outputText>
@@ -273,18 +273,18 @@
                         />
                 </p:column>
 
-                <p:column headerText="Ação" exportable="false" >
+                <p:column headerText="Ação" exportable="false" width="135">
                     <p:commandButton
                         icon="pi pi-pencil"
                         actionListener="#{serviceOrderBean.setEstado('EDITANDO')}"
-                        styleClass="edit-button rounded-button ui-button-success"
+                        styleClass="edit-button rounded-button"
                         update="@form"
                         >
                         <f:setPropertyActionListener value="#{rOs}" target="#{serviceOrderBean.entity}" />
                     </p:commandButton>
 
                     <p:commandButton
-                        class="ui-button-warning rounded-button"
+                        class="rounded-button"
                         style="margin-left: 4px"
                         icon="pi pi-trash"
                         process="@this"
@@ -317,6 +317,58 @@
                             onclick="PF('deleteOSDialog').hide()"
                             update="@form"
                             />
+                    </p:confirmDialog>
+
+                    <p:commandButton
+                        icon="pi pi-eye"
+                        styleClass="rounded-button"
+                        style="margin-left: 4px"
+                        process="@this"
+                        update="@form"
+                        oncomplete="PF('showOSDialog').show()"
+                        >
+                        <f:setPropertyActionListener value="#{rOs}" target="#{serviceOrderBean.entity}" />
+                    </p:commandButton>
+                    
+                    <p:confirmDialog
+                        widgetVar="showOSDialog"
+                        showEffect="fade"
+                        header="#{serviceOrderBean.entity.serviceName}"
+                        width="480"
+                    >
+                        <p:panelGrid columns="2"  layout="tabular">
+                            <h:outputText value="ID"/>
+                            <h:outputText value="#{serviceOrderBean.entity.id}" />
+
+                            <h:outputText value="Numero"/>
+                            <h:outputText value="#{serviceOrderBean.entity.serviceNumber.toString().substring(0, 8)}" />
+
+                            <h:outputText value="Valor"/>
+                            <h:outputText value="R$ #{serviceOrderBean.entity.realCost}"></h:outputText>
+
+                            <h:outputText value="Aberto"/>
+                            <h:outputText value="#{serviceOrderBean.entity.openingDate}">
+                                <f:convertDateTime pattern="dd/MM/yyyy"></f:convertDateTime>
+                            </h:outputText>
+
+                            <h:outputText value="Técnico"/>
+                            <h:outputText value="#{serviceOrderBean.entity.responsibleTechnician.getName()}"></h:outputText>
+
+                            <h:outputText value="Cliente"/>
+                            <h:outputText value="#{serviceOrderBean.entity.associatedCustomer.getName()}"></h:outputText>
+
+                            <h:outputText value="Status"/>
+                            <h:outputText
+                                value="#{serviceOrderBean.entity.serviceOrderStatus.toString().toLowerCase()}"
+                                styleClass="entity-badge status-#{serviceOrderBean.entity.serviceOrderStatus.toString().toLowerCase()}"
+                            />
+
+                            <h:outputText value="Prioridade"/>
+                            <h:outputText
+                                value="#{serviceOrderBean.entity.priority.toString().toLowerCase()}"
+                                styleClass="entity-badge status-#{serviceOrderBean.entity.priority.toString().toLowerCase()}"
+                            />
+                        </p:panelGrid>
                     </p:confirmDialog>
                 </p:column>
             </p:dataTable>
