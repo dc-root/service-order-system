@@ -48,12 +48,12 @@
                             />
                     </p:row>
 
-                    <p:row rendered="#{false}"> <!-- customerBean.entitys.size() > 0 -->
+                    <p:row rendered="#{true}"> <!-- customerBean.entitys.size() > 0 -->
                         <p:outputLabel for="@next" value="Cliente" />
                         <p:selectOneMenu
                             id="customer"
                             value="#{serviceOrderBean.entity.associatedCustomer}"
-                            var="rsCliente" filter="true"
+                            var="rsCliente" filter="true" converter="customerConverter"
                             filterMatchMode="startsWith" filterNormalize="true"
                             panelStyle="width:350px"
                             >
@@ -234,7 +234,7 @@
                 </p:column>
 
                 <p:column headerText="Numero" filterBy="#{rOs.serviceNumber}">
-                    <h:outputText value="#{rOs.serviceNumber.toString().substring(0, 8)}" />
+                    <h:outputText value="#{rOs.serviceNumber.toString().substring(0, 3)}" />
                 </p:column>
 
                 <p:column headerText="Serviço" filterBy="#{rOs.serviceName}">
@@ -278,12 +278,10 @@
                 </p:column>
 
                 <p:column headerText="Descrição" filterBy="#{rOs.description}">
-
                     
                     <h:outputText 
-                        value="#{rOs.description.toString().toLowerCase()}"
-                        styleClass="status-#{rOs.description.toString().toLowerCase()}"
-                        />
+                        value="#{rOs.description.toString().length() > 8 ? rOs.description.toString().toLowerCase().substring(0,8).concat('...'):rOs.description.toString().toLowerCase()}"
+                    />
                 </p:column>
 
                 <p:column headerText="Ação" exportable="false" width="135">
@@ -347,7 +345,7 @@
                         widgetVar="showOSDialog"
                         showEffect="fade"
                         header="#{serviceOrderBean.entity.serviceName}"
-                        width="480"
+                        width="780"
                         >
                         <p:panelGrid columns="2"  layout="tabular">
                             <h:outputText value="ID"/>
@@ -371,12 +369,12 @@
                             <h:outputText value="#{serviceOrderBean.entity.associatedCustomer.getName()}"></h:outputText>
                             
                             <h:outputText value="Descrição"/>
-                            <h:outputText value="#{serviceOrderBean.entity.associatedCustomer.getDescription()}" />
+                            <h:outputText value="#{serviceOrderBean.entity.description}" />
 
                             <h:outputText value="Status"/>
                             <h:outputText
                                 value="#{serviceOrderBean.entity.serviceOrderStatus.toString().toLowerCase()}"
-                                styleClass="entity-badge status-#{serviceOrderBean.entity.serviceOrderStatus.toString().toLowerCase()}"
+                                styleClass="entity-badge status-#{serviceOrderBean.entity.serviceOrderStatus.toString().toLowerCase()}" 
                                 />
 
                             <h:outputText value="Prioridade"/>
