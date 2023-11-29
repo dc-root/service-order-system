@@ -82,12 +82,12 @@
                         </p:selectOneMenu>
                     </p:row>
 
-                    <p:row rendered="#{false}">  <!-- technicianBean.entitys.size() > 0 -->
+                    <p:row rendered="#{technicianBean.entitys.size() > 0}">
                         <p:outputLabel for="@next" value="Tecnico" />
                         <p:selectOneMenu
                             id="technician"
                             value="#{serviceOrderBean.entity.responsibleTechnician}"
-                            var="rsTechnician" filter="true"
+                            var="rsTechnician" filter="true" converter="technicianConverter"
                             filterMatchMode="startsWith" filterNormalize="true"
                             panelStyle="width:450px"
                             >
@@ -280,7 +280,7 @@
                 <p:column headerText="Descrição" filterBy="#{rOs.description}">
                     
                     <h:outputText 
-                        value="#{rOs.description.toString().length() > 8 ? rOs.description.toString().toLowerCase().substring(0,8).concat('...'):rOs.description.toString().toLowerCase()}"
+                        value="#{rOs.description.toString().length() > 8 ? rOs.description.toString().substring(0,8).concat('...'):rOs.description.toString()}"
                     />
                 </p:column>
 
