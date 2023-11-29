@@ -21,6 +21,9 @@ public class ServiceOrder implements Serializable {
 
     @EqualsAndHashCode.Include
     private UUID serviceNumber;
+    
+    @EqualsAndHashCode.Include
+    private String description;
 
     private double realCost;
 
