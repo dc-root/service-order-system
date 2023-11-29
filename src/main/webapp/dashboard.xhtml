@@ -100,6 +100,10 @@
                     <h:outputText value="#{rOs.associatedCustomer.getName()}"></h:outputText>
                 </p:column>
 
+                <p:column headerText="Descrição" filterBy="#{rOs.description}">
+                    <h:outputText value="#{rOs.description}"/>
+                </p:column>
+                
                 <p:column headerText="Status" filterBy="#{rOs.serviceOrderStatus}">
                     <h:outputText
                         value="#{rOs.serviceOrderStatus.toString().toLowerCase()}"
